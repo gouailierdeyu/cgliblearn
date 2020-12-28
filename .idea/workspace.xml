@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b287f8eb-5ecf-4304-8914-de1fe6516782" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b287f8eb-5ecf-4304-8914-de1fe6516782" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,9 +125,9 @@
     <list>
       <item itemvalue="Application.testcglib" />
       <item itemvalue="Application.TestEnhancer" />
-      <item itemvalue="Java Scratch.Scratch" />
       <item itemvalue="Application.HttpEnhancer" />
       <item itemvalue="Application.HttpFactory" />
+      <item itemvalue="Java Scratch.Scratch" />
     </list>
     <recent_temporary>
       <list>
@@ -166,7 +161,7 @@
       <workItem from="1608693652066" duration="6948000" />
       <workItem from="1608774377379" duration="17000" />
       <workItem from="1608774417807" duration="10417000" />
-      <workItem from="1609055040123" duration="24207000" />
+      <workItem from="1609055040123" duration="24481000" />
     </task>
     <servers />
   </component>
