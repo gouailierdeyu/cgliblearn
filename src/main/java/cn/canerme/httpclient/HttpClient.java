@@ -1,5 +1,7 @@
 package cn.canerme.httpclient;
 
+import cn.canerme.httpmethod.GET;
+
 import java.util.Map;
 
 /**
@@ -11,11 +13,13 @@ import java.util.Map;
 abstract public class HttpClient {
 
     // post组
+
     public abstract String post(String uri, String query, Map<String, String> headers);
     public abstract String post(String uri, String query);
     public abstract String post(String uri);
 
     // get组
+    @GET(uri = "http://www.baidu.com")
     public abstract String get(String uri, String query, Map<String, String> headers);
     public abstract String get(String uri, String query);
     public abstract String get(String uri);

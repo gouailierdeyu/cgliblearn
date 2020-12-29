@@ -1,6 +1,7 @@
 package cn.canerme.httpmethod;
 
 import java.lang.annotation.*;
+import java.util.HashMap;
 
 /**
  * UTF-8
@@ -13,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface GET {
-   String value();
-   String uri();
-   String query();
+   String uri() default  "";
+   String query() default "";
+   String[] headers() default {};
 }

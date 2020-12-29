@@ -36,6 +36,7 @@ public class HttpFactory {
         return httpClient;
     }
 
+
     public static void main(String[] args) {
 //        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(HttpClient.class);
 //        Arrays.stream(httpProxyFilter.getCallbacks()).forEach(System.out::println);
