@@ -14,13 +14,13 @@ abstract public class HttpClient {
 
     // post组
 
-    public abstract String post(String uri, String query, Map<String, String> headers);
-    public abstract String post(String uri, String query);
-    public abstract String post(String uri);
+    public abstract String post(String uri, String query, Map<String, String> headers) throws Throwable;
+    public abstract String post(String uri, String query) throws Throwable;
+    public abstract String post(String uri) throws Throwable;
 
     // get组
     @GET(uri = "http://www.baidu.com")
-    public abstract String get(String uri, String query, Map<String, String> headers);
-    public abstract String get(String uri, String query);
-    public abstract String get(String uri);
+    public abstract String get(String uri, String query, Map<String, String> headers) throws Throwable;
+    public abstract String get(String uri, String query) throws Throwable;
+    public abstract String get(String uri) throws Throwable;
 }

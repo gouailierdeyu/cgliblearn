@@ -37,11 +37,12 @@ public class HttpFactory {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Throwable {
 //        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(HttpClient.class);
 //        Arrays.stream(httpProxyFilter.getCallbacks()).forEach(System.out::println);
         HttpClient httpClient = HttpFactory.getHttpClient();
-        httpClient.get("s","s",null);
+        String s = httpClient.get("s", "s", null);
+        System.out.println(s);
         httpClient.post(null);
     }
 }
