@@ -6,6 +6,7 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -42,10 +43,30 @@ public class GetMethodProxy implements MethodInterceptor {
         return doGet(uri,query,headers);
     }
 
+    /**
+     * HttpClient.send()源码发现这个函数内部还是调用了异步的函数sendAsync()方法，然后get()出结果
+     * @param uri 资源路径
+     * @param query 查询参数
+     * @param headers 请求头参数
+     * @return 响应体
+     * @throws IOException 网络IO异常
+     * @throws InterruptedException 中断异常
+     */
     public String doGet(String uri,String query,String [] headers ) throws IOException, InterruptedException {
+        if(query!=null){
+            if (uri.endsWith("?"))
+                uri = uri+query;
+            else
+                uri = uri+"?"+query;
+        }
         HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest httpRequest = HttpRequest.newBuilder(URI.create(uri)).build();
-        HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        HttpRequest.Builder builder;
+        System.out.println(headers.length);
+        if (headers!=null && headers.length!=0)
+             builder = HttpRequest.newBuilder(URI.create(uri)).GET().headers(headers);
+        else
+             builder = HttpRequest.newBuilder(URI.create(uri)).GET();
+        HttpResponse<String> httpResponse = httpClient.send(builder.build(), HttpResponse.BodyHandlers.ofString());
         return httpResponse.body();
     }
 }

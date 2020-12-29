@@ -1,9 +1,6 @@
 package cn.canerme.httpproxy;
 
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.CallbackFilter;
-import net.sf.cglib.proxy.CallbackHelper;
-import net.sf.cglib.proxy.FixedValue;
+import net.sf.cglib.proxy.*;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -36,6 +33,6 @@ public class HttpProxyFilter extends CallbackHelper {
             return getMethodProxy;
         }
         //System.out.println(method);
-        return (FixedValue) method::getName;
+        return (NoOp)(NoOp.INSTANCE);
     }
 }

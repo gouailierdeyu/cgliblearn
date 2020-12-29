@@ -19,7 +19,7 @@ abstract public class HttpClient {
     public abstract String post(String uri) throws Throwable;
 
     // get组
-    @GET(uri = "http://www.baidu.com")
+    @GET(uri = "http://www.baidu.com/s",query = "wd=java11%20http")
     public abstract String get(String uri, String query, Map<String, String> headers) throws Throwable;
     public abstract String get(String uri, String query) throws Throwable;
     public abstract String get(String uri) throws Throwable;

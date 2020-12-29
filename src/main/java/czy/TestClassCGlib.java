@@ -15,7 +15,7 @@ import java.util.Arrays;
  * 实质是生成一个设置在Enhancer中的已知类（通过setSuperclass()方法）的子类
  * 子类代理了父类的操作
  */
-public class testcglib {
+public class TestClassCGlib {
     public static void main(String[] args) {
         System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,"E:\\study\\java\\cgliblearn\\src\\main\\java\\enhancer");
                 //czy.testcglib s=new czy.testcglib();
@@ -23,12 +23,12 @@ public class testcglib {
         System.out.println(Callback.class.getInterfaces().length==0);
         System.out.println(InvocationHandler.class.getInterfaces()[0]);
         Enhancer enhancer= new Enhancer();
-        enhancer.setCallback(new PrintInterceptor());
+        enhancer.setCallback(new PrintCallBack());
 
         //enhancer.setCallbackType(czy.PrintCallBack.class);
-        enhancer.setSuperclass(testcglib.class);
+        enhancer.setSuperclass(TestClassCGlib.class);
         enhancer.setUseFactory(false);
-        testcglib test=(testcglib) enhancer.create();
+        TestClassCGlib test=(TestClassCGlib) enhancer.create();
         System.out.println("查看生成子类");
 
         //实际上是访问生成子类的toString方法和其他方法，
@@ -65,6 +65,7 @@ class PrintCallBack implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         //System.out.println(proxy);
+//        method.invoke(proxy,args);
         System.out.println(method.getName());
         Arrays.stream(args).forEach((a)-> {
             System.out.println(a.toString());

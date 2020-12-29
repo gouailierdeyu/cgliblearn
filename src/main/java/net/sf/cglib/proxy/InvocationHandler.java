@@ -33,8 +33,8 @@ extends Callback
     /**
      * @see java.lang.reflect.InvocationHandler#invoke(Object, Method, Object)
      * @param  proxy 代理类（生成类）的实例，一般没什么用
-     * @param method 代理类执行的函数
-     * @param args 代理类执行函数的参数数组
+     * @param method 父类执行的函数
+     * @param args 父类执行函数的参数数组
      * @return object 代理执行完函数的返回值
      */
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable;
