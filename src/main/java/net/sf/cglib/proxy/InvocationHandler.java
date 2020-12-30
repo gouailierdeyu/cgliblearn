@@ -32,7 +32,7 @@ extends Callback
 {
     /**
      * @see java.lang.reflect.InvocationHandler#invoke(Object, Method, Object)
-     * @param  proxy 代理类（生成类）的实例，一般没什么用
+     * @param  proxy 代理类（生成类）的实例，可以返回这个实例，实现链式函数proxy.do().do().do()
      * @param method 父类执行的函数
      * @param args 父类执行函数的参数数组
      * @return object 代理执行完函数的返回值
