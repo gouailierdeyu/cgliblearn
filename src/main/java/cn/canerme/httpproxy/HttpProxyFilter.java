@@ -21,8 +21,8 @@ public class HttpProxyFilter extends CallbackHelper {
     private static final PostMethodProxy postMethodProxy= new PostMethodProxy();
     private static final GetMethodProxy getMethodProxy= new GetMethodProxy();
 
-    public HttpProxyFilter(Class superclass) {
-        super(superclass, null);
+    public HttpProxyFilter(Class superclass,Class[] interfaces) {
+        super(superclass, interfaces);
     }
 
     @Override //这里要去重，用单例
@@ -32,7 +32,7 @@ public class HttpProxyFilter extends CallbackHelper {
         }else if (method.getName().contains("get")){
             return getMethodProxy;
         }
-        //System.out.println(method);
+//        System.out.println(method);
         return (NoOp)(NoOp.INSTANCE);
     }
 }

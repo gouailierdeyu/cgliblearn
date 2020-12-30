@@ -20,10 +20,11 @@ public class HttpFactory {
 
     public static HttpClient httpClient = null;
     private HttpFactory() {
-        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(HttpClient.class);
+        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(Object.class,new Class[]{HttpClient.class});
         Enhancer enhancer =new Enhancer();
         enhancer.setUseFactory(false);
-        enhancer.setSuperclass(HttpClient.class);
+        enhancer.setSuperclass(Object.class);
+        enhancer.setInterfaces(new Class[]{HttpClient.class});
         enhancer.setCallbackFilter(httpProxyFilter);
         enhancer.setCallbacks(httpProxyFilter.getCallbacks());
         httpClient =(HttpClient)enhancer.create();
