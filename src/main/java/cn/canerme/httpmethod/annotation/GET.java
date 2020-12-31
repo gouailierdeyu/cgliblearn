@@ -1,4 +1,4 @@
-package cn.canerme.httpmethod;
+package cn.canerme.httpmethod.annotation;
 
 import java.lang.annotation.*;
 import java.util.HashMap;

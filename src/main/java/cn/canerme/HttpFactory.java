@@ -37,6 +37,30 @@ public class HttpFactory {
         return httpClient;
     }
 
+//    public static synchronized HttpClient getHttpClient(Class clientInterface){
+//        if (httpClient==null) {
+//            new HttpFactory(clientInterface);
+//        }
+//        return httpClient;
+//    }
+
+    public static synchronized <T> T getHttpClient(Class<T> clientInterface){
+//        System.out.println(clientInterface.getGenericSuperclass());
+        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(Object.class,new Class[]{clientInterface});
+        Enhancer enhancer =new Enhancer();
+        enhancer.setUseFactory(false);
+        enhancer.setSuperclass(Object.class);
+        enhancer.setInterfaces(new Class[]{clientInterface});
+        enhancer.setCallbackFilter(httpProxyFilter);
+        enhancer.setCallbacks(httpProxyFilter.getCallbacks());
+        T httpClient=(T)enhancer.create();
+        return httpClient;
+//        if (httpClient==null) {
+//            new HttpFactory(clientInterface);
+//        }
+//        return httpClient;
+    }
+
     public static void main(String[] args) throws Throwable {
 //        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(HttpClient.class);
 //        Arrays.stream(httpProxyFilter.getCallbacks()).forEach(System.out::println);

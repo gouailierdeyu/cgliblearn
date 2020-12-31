@@ -1,12 +1,11 @@
 package cn.canerme.httpproxy;
 
-import cn.canerme.httpmethod.GET;
+import cn.canerme.httpmethod.annotation.GET;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -29,7 +28,7 @@ public class GetMethodProxy implements MethodInterceptor {
                 uri = ((GET) annotation).uri();
                 query = ((GET) annotation).query();
                 headers =((GET) annotation).headers();
-                System.out.println(((GET) annotation).uri());
+//                System.out.println(((GET) annotation).uri());
                 return doGet(uri,query,headers);
             }
         }
@@ -61,7 +60,7 @@ public class GetMethodProxy implements MethodInterceptor {
         }
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest.Builder builder;
-        System.out.println(headers.length);
+//        System.out.println(headers.length);
         if (headers!=null && headers.length!=0)
              builder = HttpRequest.newBuilder(URI.create(uri)).GET().headers(headers);
         else
