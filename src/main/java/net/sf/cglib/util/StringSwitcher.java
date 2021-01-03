@@ -22,7 +22,11 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.Type;
 
 /**
+ *  创建一个子类的方法
+ *  将一组string的数据和一组int的数据映射起来
+ *  注意不要将int数组中的值设置为-1！！
  * This class implements a simple String->int mapping for a fixed set of keys.
+ * KeyFactory.create()
  */
 abstract public class StringSwitcher {
     private static final Type STRING_SWITCHER =
@@ -37,6 +41,9 @@ abstract public class StringSwitcher {
     }
 
     /**
+     * 静态创建辅助方法
+     * fixedInput = false 当给出一个未知字符串时，返回-1，
+     * fixedInput = true 当给出一个未知字符串时，返回undefined的值。实际测试还是-1
      * Helper method to create a StringSwitcher.
      * For finer control over the generated instance, use a new instance of StringSwitcher.Generator
      * instead of this static method.
@@ -57,6 +64,9 @@ abstract public class StringSwitcher {
     }
 
     /**
+     * 返回给定的字符串对应的int数值
+     * fixedInput = false 当是一个未知字符串时，返回-1，
+     * fixedInput = true 当是一个未知字符串时，返回undefined的值。实际测试还是-1
      * Return the integer associated with the given key.
      * @param s the key
      * @return the associated integer value, or <code>-1</code> if the key is unknown (unless
@@ -132,10 +142,12 @@ abstract public class StringSwitcher {
             final List stringList = Arrays.asList(strings);
             int style = fixedInput ? Constants.SWITCH_STYLE_HASHONLY : Constants.SWITCH_STYLE_HASH;
             EmitUtils.string_switch(e, strings, style, new ObjectSwitchCallback() {
+                @Override
                 public void processCase(Object key, Label end) {
                     e.push(ints[stringList.indexOf(key)]);
                     e.return_value();
                 }
+                @Override
                 public void processDefault() {
                     e.push(-1);
                     e.return_value();

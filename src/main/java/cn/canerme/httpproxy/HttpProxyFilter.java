@@ -55,10 +55,7 @@ public class HttpProxyFilter extends CallbackHelper {
 
         if (flag==2) {
                 throw  new HttpMethodConfusionException(method.getName()+"() can proxy only one http method");
-
         }
-
-
 //        if (flag==0)
         for (Annotation annotation : method.getAnnotations()) {
             if (annotation instanceof GET) {

@@ -27,6 +27,8 @@ import java.lang.reflect.Method;
  * alive to enable caching of generated classes. Prefer using {@code static}
  * classes for implementation of {@link CallbackFilter}.</p>
  * 回调过滤器，指定某个父类的方法过滤到回调数组下标指定的回调中。
+ * 建议继承过滤器实现自己的回调过滤时，
+ * 直接实现CallbackHelper的Object getCallback(Method method)方法。
  */
 public interface CallbackFilter {
     /**

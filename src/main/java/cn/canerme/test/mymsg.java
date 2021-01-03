@@ -9,8 +9,8 @@ import cn.canerme.httpmethod.annotation.POST;
  *
  * @version 1.0
  */
-public interface mymsg {
-    @GET(uri = "http://www.baidu.com")
+public interface mymsg  {
 
+    @GET(uri = "http://www.baidu.com")
     String search();
 }

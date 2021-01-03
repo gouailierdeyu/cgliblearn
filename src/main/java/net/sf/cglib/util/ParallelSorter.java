@@ -46,6 +46,9 @@ import org.objectweb.asm.ClassVisitor;
  * @author Chris Nokleberg
  */
 abstract public class ParallelSorter extends SorterTemplate {
+    /**
+     * 实际上是一个二位数组，取其中一组数据出来比较
+     */
     protected Object[] a;
     private Comparer comparer;
 
@@ -55,6 +58,8 @@ abstract public class ParallelSorter extends SorterTemplate {
     abstract public ParallelSorter newInstance(Object[] arrays);
 
     /**
+     * 传入的arrays是数组和数组下标的组合，所以[0]是数组，[1]是下标
+     * new Object[]{ data, idx }
      * Create a new ParallelSorter object for a set of arrays. You may
      * sort the arrays multiple times via the same ParallelSorter object.
      * @param arrays An array of arrays to sort. The arrays may be a mix
@@ -172,6 +177,7 @@ abstract public class ParallelSorter extends SorterTemplate {
         }
     }
 
+    @Override
     protected int compare(int i, int j) {
         return comparer.compare(i, j);
     }
@@ -189,6 +195,7 @@ abstract public class ParallelSorter extends SorterTemplate {
             this.cmp = cmp;
         }
 
+        @Override
         public int compare(int i, int j) {
             return cmp.compare(a[i], a[j]);
         }
@@ -197,6 +204,7 @@ abstract public class ParallelSorter extends SorterTemplate {
     static class ObjectComparer implements Comparer {
         private Object[] a;
         public ObjectComparer(Object[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) {
             return ((Comparable)a[i]).compareTo(a[j]);
         }
@@ -205,12 +213,14 @@ abstract public class ParallelSorter extends SorterTemplate {
     static class IntComparer implements Comparer {
         private int[] a;
         public IntComparer(int[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) { return a[i] - a[j]; }
     }
 
     static class LongComparer implements Comparer {
         private long[] a;
         public LongComparer(long[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) {
             long vi = a[i];
             long vj = a[j];
@@ -221,6 +231,7 @@ abstract public class ParallelSorter extends SorterTemplate {
     static class FloatComparer implements Comparer {
         private float[] a;
         public FloatComparer(float[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) {
             float vi = a[i];
             float vj = a[j];
@@ -231,6 +242,7 @@ abstract public class ParallelSorter extends SorterTemplate {
     static class DoubleComparer implements Comparer {
         private double[] a;
         public DoubleComparer(double[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) {
             double vi = a[i];
             double vj = a[j];
@@ -241,12 +253,14 @@ abstract public class ParallelSorter extends SorterTemplate {
     static class ShortComparer implements Comparer {
         private short[] a;
         public ShortComparer(short[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) { return a[i] - a[j]; }
     }
 
     static class ByteComparer implements Comparer {
         private byte[] a;
         public ByteComparer(byte[] a) { this.a = a; }
+        @Override
         public int compare(int i, int j) { return a[i] - a[j]; }
     }
 

@@ -17,13 +17,26 @@ package net.sf.cglib.util;
 
 import java.util.*;
 
+/**
+ * 排序算法模板
+ *
+ */
 abstract class SorterTemplate {
+    /**
+     * 分别是归并排序和快速排序的个数阈值
+     * 小于这个阈值，就使用插入排序
+     */
     private static final int MERGESORT_THRESHOLD = 12;
     private static final int QUICKSORT_THRESHOLD = 7;
 
     abstract protected void swap(int i, int j);
     abstract protected int compare(int i, int j);
 
+    /**
+     * 排序数据序列中的左右下标
+     * @param lo
+     * @param hi
+     */
     protected void quickSort(int lo, int hi) {
         quickSortHelper(lo, hi);
         insertionSort(lo, hi);
@@ -71,7 +84,7 @@ abstract class SorterTemplate {
             }
         }
     }
-    
+
     private void insertionSort(int lo, int hi) {
         for (int i = lo + 1 ; i <= hi; i++) {
             for (int j = i; j > lo; j--) {

@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
 public class PutMethodProxy implements MethodInterceptor {
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+        System.out.println("PostMethodProxy");
         return null;
     }
 }

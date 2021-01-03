@@ -21,6 +21,8 @@ import java.util.*;
 
 /**
  * @version $Id: CallbackHelper.java,v 1.2 2004/06/24 21:15:20 herbyderby Exp $
+ * 建议继承过滤器实现自己的回调过滤时，
+ * 直接实现CallbackHelper的Object getCallback(Method method)方法。
  */
 abstract public class CallbackHelper
 implements CallbackFilter

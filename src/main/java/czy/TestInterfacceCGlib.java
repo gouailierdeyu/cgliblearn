@@ -25,8 +25,8 @@ public class TestInterfacceCGlib {
         System.out.println("查看生成子类");
 
         //实际上是访问生成子类的toString方法和其他方法，
-        // 生成类被cglib修改了，所以会报错
-        // System.out.println( test);
+        // 生成类被cglib修改了，所以打印的内容由cglib决定
+         System.out.println( test.toString());
 //        System.out.println(test.CGLIB$toString$2());
         System.out.println("结束查看生成子类");
         String hh= test.getresult();

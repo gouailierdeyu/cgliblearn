@@ -29,6 +29,7 @@ import org.objectweb.asm.Type;
 import org.objectweb.asm.Label;
 
 /**
+ * KeyFactory.create()
  * Generates dynamic subclasses to enable method interception. This
  * class started as a substitute for the standard Dynamic Proxy support
  * included with JDK 1.3, but one that allowed the proxies to extend a

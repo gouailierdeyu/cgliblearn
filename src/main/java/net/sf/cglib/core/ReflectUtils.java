@@ -26,6 +26,7 @@ import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Type;
 
 /**
+ * 反射工具类，利用jdk反射相关的类创建对象实例，构建方法签名等
  * @version $Id: ReflectUtils.java,v 1.30 2009/01/11 19:47:49 herbyderby Exp $
  */
 public class ReflectUtils {
