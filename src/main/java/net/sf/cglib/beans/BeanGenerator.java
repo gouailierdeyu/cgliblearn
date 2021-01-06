@@ -24,6 +24,7 @@ import org.objectweb.asm.Type;
 
 /**
  * @author Juozas Baliuka, Chris Nokleberg
+ * 生成一个指定父类（或者object）的子类对象实例并设置字段名
  */
 public class BeanGenerator extends AbstractClassGenerator
 {
@@ -44,6 +45,7 @@ public class BeanGenerator extends AbstractClassGenerator
     }
 
     /**
+     * 父类，必须不是final 必须有一个非私有的无参构造函数
      * Set the class which the generated class will extend. The class
      * must not be declared as final, and must have a non-private
      * no-argument constructor.

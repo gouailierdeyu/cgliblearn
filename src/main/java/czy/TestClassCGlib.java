@@ -5,6 +5,9 @@ import net.sf.cglib.proxy.*;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * UTF-8
@@ -39,7 +42,6 @@ public class TestClassCGlib {
         String hh= test.print("czy.testcglib");
         System.out.println(hh);
         System.out.println(czy.YYY.ordinal());
-
     }
 
     /**

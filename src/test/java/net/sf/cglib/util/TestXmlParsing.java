@@ -17,6 +17,7 @@ package net.sf.cglib.util;
 
 import net.sf.cglib.CodeGenTestCase;
 import junit.framework.*;
+import net.sf.cglib.core.DebuggingClassWriter;
 
 public class TestXmlParsing extends CodeGenTestCase {
     private static final String ATTRIBUTE_STR = "attribute";
@@ -231,6 +232,7 @@ public class TestXmlParsing extends CodeGenTestCase {
     }
 
     public void testStartElement() throws Throwable {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,"E:\\study\\java\\cgliblearn\\src\\main\\java\\enhancer");
         int numWords = 10000;
         int reps = 1000;
 

@@ -24,6 +24,9 @@ import net.sf.cglib.core.*;
 import org.objectweb.asm.ClassVisitor;
 
 /**
+ * 将一个类的所有字段用一个map来表示，键是所有的字段名
+ * 如果要求可读，那么没有getter的字段就不会在map中
+ * 要求可写，那么没有setter的字段就不会在map中
  * A <code>Map</code>-based view of a JavaBean.  The default set of keys is the
  * union of all property names (getters or setters). An attempt to set
  * a read-only property will be ignored, and write-only properties will
@@ -33,6 +36,7 @@ import org.objectweb.asm.ClassVisitor;
  */
 abstract public class BeanMap implements Map {
     /**
+     * 只读
      * Limit the properties reflected in the key set of the map
      * to readable properties.
      * @see Generator#setRequire
@@ -40,6 +44,7 @@ abstract public class BeanMap implements Map {
     public static final int REQUIRE_GETTER = 1;
 
     /**
+     * 只写
      * Limit the properties reflected in the key set of the map
      * to writable properties.
      * @see Generator#setRequire

@@ -25,6 +25,8 @@ import java.util.*;
 
 /**
  * @author Chris Nokleberg
+ * 对象实例复制工具   KeyFactory.create(BeanCopierKey.class)
+ * 就是将源对象实例属性的值拷贝给目标对象实例
  */
 abstract public class BeanCopier
 {

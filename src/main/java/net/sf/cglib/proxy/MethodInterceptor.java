@@ -29,7 +29,7 @@ extends Callback
      * The original method may either be invoked by normal reflection using the Method object,
      * or by using the MethodProxy (faster).
      * @param obj 增强过后的实例，生成类实例 可以返回这个实例，实现链式函数 proxy.do().do().do()
-     * @param method 拦截的后的子类方法 intercepted Method
+     * @param method 拦截的父类方法 intercepted Method
      * @param args  方法参数数组 argument array; primitive types are wrapped
      * @param proxy 用于调用原始方法，也可以用于调用相同类型的不同对象上的相同方法used to invoke super (non-intercepted method); may be called
      * as many times as needed
