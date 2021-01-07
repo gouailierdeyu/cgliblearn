@@ -27,15 +27,17 @@ public class ClassNameReader {
 
     private static final EarlyExitException EARLY_EXIT = new EarlyExitException();
     private static class EarlyExitException extends RuntimeException { }
-    
+
     public static String getClassName(ClassReader r) {
-    
+
         return getClassInfo(r)[0];
-      
+
     }
-    
+
     public static String[] getClassInfo(ClassReader r) {
         final List array = new ArrayList();
+        // 获取类名信息 比如public class java.a.b extends c implement intera
+        // 得到java.a.b
         try {
             r.accept(new ClassVisitor(Constants.ASM_API, null) {
                 public void visit(int version,
@@ -51,12 +53,12 @@ public class ClassNameReader {
                     for(int i = 0; i < interfaces.length; i++  ){
                        array.add( interfaces[i].replace('/', '.') );
                     }
-                    
+
                     throw EARLY_EXIT;
                 }
             }, ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
         } catch (EarlyExitException e) { }
-        
+
         return (String[])array.toArray( new String[]{} );
     }
 }

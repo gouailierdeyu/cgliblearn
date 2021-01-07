@@ -15,6 +15,10 @@
  */
 package net.sf.cglib.core;
 
+
+/**
+ * 大的按位存储的集
+ */
 @Deprecated
 public class TinyBitSet {
     private static int[] T = new int[256];

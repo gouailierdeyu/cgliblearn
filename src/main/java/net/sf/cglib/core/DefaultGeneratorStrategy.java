@@ -17,6 +17,11 @@ package net.sf.cglib.core;
 
 import org.objectweb.asm.ClassWriter;
 
+/**
+ * 生成策略，主要根据是实现的generateClass(cw);生成字节码，
+ * DebuggingClassWriter再根据是否设置了System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,"path");
+ * 将字节码生成.class文件
+ */
 public class DefaultGeneratorStrategy implements GeneratorStrategy {
     public static final DefaultGeneratorStrategy INSTANCE = new DefaultGeneratorStrategy();
 

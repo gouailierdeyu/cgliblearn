@@ -510,15 +510,19 @@ public class ReflectUtils {
         final Type type = Type.getType(clazz);
         final Type sc = (clazz.getSuperclass() == null) ? null : Type.getType(clazz.getSuperclass());
         return new ClassInfo() {
+            @Override
             public Type getType() {
                 return type;
             }
+            @Override
             public Type getSuperType() {
                 return sc;
             }
+            @Override
             public Type[] getInterfaces() {
                 return TypeUtils.getTypes(clazz.getInterfaces());
             }
+            @Override
             public int getModifiers() {
                 return clazz.getModifiers();
             }

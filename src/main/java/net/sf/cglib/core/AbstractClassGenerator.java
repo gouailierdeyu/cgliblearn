@@ -295,6 +295,7 @@ implements ClassGenerator
     abstract protected ClassLoader getDefaultClassLoader();
 
     /**
+     * 保护域（default public private）  默认为null default
      * Returns the protection domain to use when defining the class.
      * <p>
      * Default implementation returns <code>null</code> for using a default protection domain. Sub-classes may
@@ -364,6 +365,7 @@ implements ClassGenerator
                 }
             }
             byte[] b = strategy.generate(this); //默认策略构建类的字节码
+            // new ClassReader(b)这个b就是整个类的字节码，建一个类读取器，保存类的所有信息
             String className = ClassNameReader.getClassName(new ClassReader(b));
             ProtectionDomain protectionDomain = getProtectionDomain();
             synchronized (classLoader) { // just in case

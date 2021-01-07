@@ -23,6 +23,7 @@ abstract public class AbstractClassTransformer extends ClassTransformer {
         super(Constants.ASM_API);
     }
 
+    @Override
     public void setTarget(ClassVisitor target) {
         cv = target;
     }

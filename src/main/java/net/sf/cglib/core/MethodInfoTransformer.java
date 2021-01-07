@@ -24,7 +24,8 @@ public class MethodInfoTransformer implements Transformer
     public static MethodInfoTransformer getInstance() {
         return INSTANCE;
     }
-    
+
+    @Override
     public Object transform(Object value) {
         if (value instanceof Method) {
             return ReflectUtils.getMethodInfo((Method)value);

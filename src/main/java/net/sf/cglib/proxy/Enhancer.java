@@ -592,6 +592,7 @@ public class Enhancer extends AbstractClassGenerator
         getMethods(sc, interfaces, actualMethods, interfaceMethods, forcePublic);
 
         List methods = CollectionUtils.transform(actualMethods, new Transformer() {
+            @Override
             public Object transform(Object value) {
                 Method method = (Method)value;
                 int modifiers = Constants.ACC_FINAL

@@ -8,6 +8,7 @@ public class LoadingCache<K, KK, V> {
     protected final Function<K, KK> keyMapper;
 
     public static final Function IDENTITY = new Function() {
+        @Override
         public Object apply(Object key) {
             return key;
         }

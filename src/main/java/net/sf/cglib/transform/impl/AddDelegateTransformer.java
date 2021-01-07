@@ -29,11 +29,11 @@ public class AddDelegateTransformer extends ClassEmitterTransformer {
     private static final String DELEGATE = "$CGLIB_DELEGATE";
     private static final Signature CSTRUCT_OBJECT =
       TypeUtils.parseSignature("void <init>(Object)");
-    
+
     private Class[] delegateIf;
     private Class delegateImpl;
     private Type delegateType;
-    
+
     /** Creates a new instance of AddDelegateTransformer */
     public AddDelegateTransformer(Class delegateIf[], Class delegateImpl) {
         try {
@@ -45,14 +45,15 @@ public class AddDelegateTransformer extends ClassEmitterTransformer {
             throw new CodeGenerationException(e);
         }
     }
-    
+
+    @Override
     public void begin_class(int version, int access, String className, Type superType, Type[] interfaces, String sourceFile) {
-        
+
         if(!TypeUtils.isInterface(access)){
-            
+
         Type[] all = TypeUtils.add(interfaces, TypeUtils.getTypes(delegateIf));
         super.begin_class(version, access, className, superType, all, sourceFile);
-        
+
         declare_field(Constants.ACC_PRIVATE | Constants.ACC_TRANSIENT,
                       DELEGATE,
                       delegateType,
@@ -70,6 +71,7 @@ public class AddDelegateTransformer extends ClassEmitterTransformer {
         }
     }
 
+    @Override
     public CodeEmitter begin_method(int access, Signature sig, Type[] exceptions) {
         final CodeEmitter e = super.begin_method(access, sig, exceptions);
         if (sig.getName().equals(Constants.CONSTRUCTOR_NAME)) {

@@ -26,11 +26,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 生成一个类
+ * 使用asm字节码去生成一个类，包含构造方法，字段，方法等等
  * @author Juozas Baliuka, Chris Nokleberg
  */
 public class ClassEmitter extends ClassTransformer {
     private ClassInfo classInfo;
-    private Map fieldInfo;
+    private Map fieldInfo; // FieldInfo
 
     private static int hookCounter;
     private MethodVisitor rawStaticInit;
@@ -46,6 +48,7 @@ public class ClassEmitter extends ClassTransformer {
         super(Constants.ASM_API);
     }
 
+    @Override
     public void setTarget(ClassVisitor cv) {
         this.cv = cv;
         fieldInfo = new HashMap();
@@ -66,15 +69,19 @@ public class ClassEmitter extends ClassTransformer {
     public void begin_class(int version, final int access, String className, final Type superType, final Type[] interfaces, String source) {
         final Type classType = Type.getType("L" + className.replace('.', '/') + ";");
         classInfo = new ClassInfo() {
+            @Override
             public Type getType() {
                 return classType;
             }
+            @Override
             public Type getSuperType() {
                 return (superType != null) ? superType : Constants.TYPE_OBJECT;
             }
+            @Override
             public Type[] getInterfaces() {
                 return interfaces;
             }
+            @Override
             public int getModifiers() {
                 return access;
             }
@@ -167,6 +174,7 @@ public class ClassEmitter extends ClassTransformer {
             return staticInit;
         } else if (sig.equals(staticHookSig)) {
             return new CodeEmitter(this, v, access, sig, exceptions) {
+                @Override
                 public boolean isStaticHook() {
                     return true;
                 }
@@ -205,13 +213,13 @@ public class ClassEmitter extends ClassTransformer {
         }
         return field;
     }
-    
+
     static class FieldInfo {
         int access;
         String name;
         Type type;
         Object value;
-        
+
         public FieldInfo(int access, String name, Type type, Object value) {
             this.access = access;
             this.name = name;
@@ -237,6 +245,7 @@ public class ClassEmitter extends ClassTransformer {
             return true;
         }
 
+        @Override
         public int hashCode() {
             return access ^ name.hashCode() ^ type.hashCode() ^ ((value == null) ? 0 : value.hashCode());
         }
@@ -255,11 +264,11 @@ public class ClassEmitter extends ClassTransformer {
                     TypeUtils.fromInternalNames(interfaces),
                     null); // TODO
     }
-    
+
     public void visitEnd() {
         end_class();
     }
-    
+
     public FieldVisitor visitField(int access,
                                    String name,
                                    String desc,
@@ -268,7 +277,8 @@ public class ClassEmitter extends ClassTransformer {
         declare_field(access, name, Type.getType(desc), value);
         return null; // TODO
     }
-    
+
+    @Override
     public MethodVisitor visitMethod(int access,
                                      String name,
                                      String desc,
@@ -276,6 +286,6 @@ public class ClassEmitter extends ClassTransformer {
                                      String[] exceptions) {
         return begin_method(access,
                             new Signature(name, desc),
-                            TypeUtils.fromInternalNames(exceptions));        
+                            TypeUtils.fromInternalNames(exceptions));
     }
 }

@@ -18,6 +18,10 @@ package net.sf.cglib.core;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Type;
 
+/**
+ * 类信息类型
+ * 包括类的类型 父类 接口，访问修饰符
+ */
 abstract public class ClassInfo {
 
     protected ClassInfo() {
@@ -28,6 +32,7 @@ abstract public class ClassInfo {
     abstract public Type[] getInterfaces();
     abstract public int getModifiers();
 
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -36,10 +41,12 @@ abstract public class ClassInfo {
         return getType().equals(((ClassInfo)o).getType());
     }
 
+    @Override
     public int hashCode() {
         return getType().hashCode();
     }
 
+    @Override
     public String toString() {
         // TODO: include modifiers, superType, interfaces
         return getType().getClassName();

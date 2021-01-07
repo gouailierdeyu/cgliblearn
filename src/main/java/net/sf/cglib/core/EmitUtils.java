@@ -67,8 +67,8 @@ public class EmitUtils {
       TypeUtils.parseSignature("void setLength(int)");
     private static final Signature GET_DECLARED_METHOD =
       TypeUtils.parseSignature("java.lang.reflect.Method getDeclaredMethod(String, Class[])");
-     
-    
+
+
 
     public static final ArrayDelimiters DEFAULT_DELIMITERS = new ArrayDelimiters("{", ", ", "}");
 
@@ -92,7 +92,7 @@ public class EmitUtils {
         e.return_value();
         e.end_method();
     }
-    
+
     /**
      * Process an array on the stack. Assumes the top item on the stack
      * is an array of the specified type. For each element in the array,
@@ -110,21 +110,21 @@ public class EmitUtils {
         e.push(0);
         e.store_local(loopvar);
         e.goTo(checkloop);
-        
+
         e.mark(loopbody);
         e.load_local(array);
         e.load_local(loopvar);
         e.array_load(componentType);
         callback.processElement(componentType);
         e.iinc(loopvar, 1);
-        
+
         e.mark(checkloop);
         e.load_local(loopvar);
         e.load_local(array);
         e.arraylength();
         e.if_icmp(e.LT, loopbody);
     }
-    
+
     /**
      * Process two arrays on the stack in parallel. Assumes the top two items on the stack
      * are arrays of the specified class. The arrays must be the same length. For each pair
@@ -144,7 +144,7 @@ public class EmitUtils {
         e.push(0);
         e.store_local(loopvar);
         e.goTo(checkloop);
-        
+
         e.mark(loopbody);
         e.load_local(array1);
         e.load_local(loopvar);
@@ -154,14 +154,14 @@ public class EmitUtils {
         e.array_load(componentType);
         callback.processElement(componentType);
         e.iinc(loopvar, 1);
-        
+
         e.mark(checkloop);
         e.load_local(loopvar);
         e.load_local(array1);
         e.arraylength();
         e.if_icmp(e.LT, loopbody);
     }
-    
+
     public static void string_switch(CodeEmitter e, String[] strings, int switchStyle, ObjectSwitchCallback callback) {
         try {
             switch (switchStyle) {
@@ -192,6 +192,7 @@ public class EmitUtils {
         final Label def = e.make_label();
         final Label end = e.make_label();
         final Map buckets = CollectionUtils.bucket(Arrays.asList(strings), new Transformer() {
+            @Override
             public Object transform(Object value) {
                 return new Integer(((String)value).length());
             }
@@ -221,6 +222,7 @@ public class EmitUtils {
                                            final int index) throws Exception {
         final int len = ((String)strings.get(0)).length();
         final Map buckets = CollectionUtils.bucket(strings, new Transformer() {
+            @Override
             public Object transform(Object value) {
                 return new Integer(((String)value).charAt(index));
             }
@@ -242,7 +244,7 @@ public class EmitUtils {
                     e.goTo(def);
                 }
             });
-    }        
+    }
 
     static int[] getSwitchKeys(Map buckets) {
         int[] keys = new int[buckets.size()];
@@ -259,6 +261,7 @@ public class EmitUtils {
                                            final ObjectSwitchCallback callback,
                                            final boolean skipEquals) throws Exception {
         final Map buckets = CollectionUtils.bucket(Arrays.asList(strings), new Transformer() {
+            @Override
             public Object transform(Object value) {
                 return new Integer(value.hashCode());
             }
@@ -308,7 +311,7 @@ public class EmitUtils {
     public static void load_class_this(CodeEmitter e) {
         load_class_helper(e, e.getClassEmitter().getClassType());
     }
-    
+
     public static void load_class(CodeEmitter e, Type type) {
         if (TypeUtils.isPrimitive(type)) {
             if (type == Type.VOID_TYPE) {
@@ -358,7 +361,7 @@ public class EmitUtils {
             return Class.class;
         return componentType;
     }
-    
+
     public static void push_object(CodeEmitter e, Object obj) {
         if (obj == null) {
             e.aconst_null();
@@ -395,7 +398,7 @@ public class EmitUtils {
     public static void hash_code(CodeEmitter e, Type type, int multiplier, final Customizer customizer) {
     	hash_code(e, type, multiplier, CustomizerRegistry.singleton(customizer));
     }
-    
+
     public static void hash_code(CodeEmitter e, Type type, int multiplier, final CustomizerRegistry registry) {
         if (TypeUtils.isArray(type)) {
             hash_array(e, type, multiplier, registry);
@@ -487,7 +490,7 @@ public class EmitUtils {
 //     public static void not_equals(CodeEmitter e, Type type, Label notEquals) {
 //         not_equals(e, type, notEquals, null);
 //     }
-    
+
     /**
      * @deprecated use {@link #not_equals(CodeEmitter, Type, Label, CustomizerRegistry)} instead
      */
@@ -495,7 +498,7 @@ public class EmitUtils {
     public static void not_equals(CodeEmitter e, Type type, final Label notEquals, final Customizer customizer) {
     	not_equals(e, type, notEquals, CustomizerRegistry.singleton(customizer));
     }
-    
+
     /**
      * Branches to the specified label if the top two items on the stack
      * are not equal. The items must both be of the specified
@@ -510,7 +513,7 @@ public class EmitUtils {
             }
         }).processElement(type);
     }
-    
+
     private static void not_equals_helper(CodeEmitter e,
                                           Type type,
                                           Label notEquals,
@@ -566,15 +569,15 @@ public class EmitUtils {
         e.ifnonnull(oneNullHelper);
         e.pop2();
         e.goTo(bothNull);
-        
+
         e.mark(nonNull);
         e.ifnull(oneNullHelper);
         e.goTo(end);
-        
+
         e.mark(oneNullHelper);
         e.pop2();
         e.goTo(oneNull);
-        
+
         e.mark(end);
     }
 
@@ -693,7 +696,7 @@ public class EmitUtils {
         private String before;
         private String inside;
         private String after;
-            
+
         public ArrayDelimiters(String before, String inside, String after) {
             this.before = before;
             this.inside = inside;
@@ -744,6 +747,7 @@ public class EmitUtils {
             if (useName) {
                 e.swap();
                 final Map buckets = CollectionUtils.bucket(members, new Transformer() {
+                        @Override
                         public Object transform(Object value) {
                             return ((MethodInfo)value).getSignature().getName();
                         }
@@ -780,6 +784,7 @@ public class EmitUtils {
                                            final Label def,
                                            final Label end) throws Exception {
         final Map buckets = CollectionUtils.bucket(members, new Transformer() {
+            @Override
             public Object transform(Object value) {
                 return new Integer(typer.getParameterTypes((MethodInfo)value).length);
             }
@@ -828,6 +833,7 @@ public class EmitUtils {
             for (int i = 0; i < example.length; i++) {
                 final int j = i;
                 Map test = CollectionUtils.bucket(members, new Transformer() {
+                    @Override
                     public Object transform(Object value) {
                         return TypeUtils.emulateClassGetName(typer.getParameterTypes((MethodInfo)value)[j]);
                     }

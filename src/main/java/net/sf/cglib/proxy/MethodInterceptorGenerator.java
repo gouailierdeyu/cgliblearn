@@ -66,6 +66,7 @@ implements CallbackGenerator
     private static final Signature TO_STRING =
       TypeUtils.parseSignature("String toString()");
     private static final Transformer METHOD_TO_CLASS = new Transformer(){
+        @Override
         public Object transform(Object value) {
             return ((MethodInfo)value).getClassInfo();
         }

@@ -35,15 +35,16 @@ public class InterceptFieldTransformer extends ClassEmitterTransformer {
       new Signature("getInterceptFieldCallback", CALLBACK, new Type[0]);
 
     private InterceptFieldFilter filter;
-    
+
     public InterceptFieldTransformer(InterceptFieldFilter filter) {
         this.filter = filter;
     }
-    
+
+    @Override
     public void begin_class(int version, int access, String className, Type superType, Type[] interfaces, String sourceFile) {
         if (!TypeUtils.isInterface(access)) {
             super.begin_class(version, access, className, superType, TypeUtils.add(interfaces, ENABLED), sourceFile);
-                    
+
             super.declare_field(Constants.ACC_PRIVATE | Constants.ACC_TRANSIENT,
                                 CALLBACK_FIELD,
                                 CALLBACK,
@@ -55,7 +56,7 @@ public class InterceptFieldTransformer extends ClassEmitterTransformer {
             e.getfield(CALLBACK_FIELD);
             e.return_value();
             e.end_method();
-                
+
             e = super.begin_method(Constants.ACC_PUBLIC, ENABLED_SET, null);
             e.load_this();
             e.load_arg(0);
@@ -137,7 +138,8 @@ public class InterceptFieldTransformer extends ClassEmitterTransformer {
         e.return_value();
         e.end_method();
     }
-                
+
+    @Override
     public CodeEmitter begin_method(int access, Signature sig, Type[] exceptions) {
         return new CodeEmitter(super.begin_method(access, sig, exceptions)) {
             public void visitFieldInsn(int opcode, String owner, String name, String desc) {

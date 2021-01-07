@@ -20,6 +20,7 @@ import java.util.*;
 import org.objectweb.asm.*;
 
 /**
+ * 生成需要的代码
  * @author Juozas Baliuka, Chris Nokleberg
  */
 public class CodeEmitter extends LocalVariablesSorter {
@@ -308,7 +309,7 @@ public class CodeEmitter extends LocalVariablesSorter {
             mv.visitLdcInsn(new Integer(i));
         }
     }
-    
+
     public void push(long value) {
         if (value == 0L || value == 1L) {
             mv.visitInsn(TypeUtils.LCONST(value));
@@ -316,7 +317,7 @@ public class CodeEmitter extends LocalVariablesSorter {
             mv.visitLdcInsn(new Long(value));
         }
     }
-    
+
     public void push(float value) {
         if (value == 0f || value == 1f || value == 2f) {
             mv.visitInsn(TypeUtils.FCONST(value));
@@ -331,7 +332,7 @@ public class CodeEmitter extends LocalVariablesSorter {
             mv.visitLdcInsn(new Double(value));
         }
     }
-    
+
     public void push(String value) {
         mv.visitLdcInsn(value);
     }
@@ -347,18 +348,18 @@ public class CodeEmitter extends LocalVariablesSorter {
             emit_type(Constants.ANEWARRAY, type);
         }
     }
-    
+
     public void arraylength() {
         mv.visitInsn(Constants.ARRAYLENGTH);
     }
-    
+
     public void load_this() {
         if (TypeUtils.isStatic(state.access)) {
             throw new IllegalStateException("no 'this' pointer within static method");
         }
         mv.visitVarInsn(Constants.ALOAD, 0);
     }
-    
+
     /**
      * Pushes all of the arguments of the current method onto the stack.
      */
@@ -384,7 +385,7 @@ public class CodeEmitter extends LocalVariablesSorter {
             pos += t.getSize();
         }
     }
-    
+
     private int skipArgs(int numArgs) {
         int amount = 0;
         for (int i = 0; i < numArgs; i++) {
@@ -402,15 +403,15 @@ public class CodeEmitter extends LocalVariablesSorter {
         // TODO: make t == null ok?
         mv.visitVarInsn(t.getOpcode(Constants.ISTORE), pos);
     }
-    
+
     public void iinc(Local local, int amount) {
         mv.visitIincInsn(local.getIndex(), amount);
     }
-    
+
     public void store_local(Local local) {
         store_local(local.getType(), local.getIndex());
     }
-    
+
     public void load_local(Local local) {
         load_local(local.getType(), local.getIndex());
     }
@@ -424,7 +425,7 @@ public class CodeEmitter extends LocalVariablesSorter {
         int opcode = TypeUtils.isStatic(info.access) ? Constants.GETSTATIC : Constants.GETFIELD;
         emit_field(opcode, ce.getClassType(), name, info.type);
     }
-    
+
     public void putfield(String name) {
         ClassEmitter.FieldInfo info = ce.getFieldInfo(name);
         int opcode = TypeUtils.isStatic(info.access) ? Constants.PUTSTATIC : Constants.PUTFIELD;
@@ -434,7 +435,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void super_getfield(String name, Type type) {
         emit_field(Constants.GETFIELD, ce.getSuperType(), name, type);
     }
-    
+
     public void super_putfield(String name, Type type) {
         emit_field(Constants.PUTFIELD, ce.getSuperType(), name, type);
     }
@@ -442,7 +443,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void super_getstatic(String name, Type type) {
         emit_field(Constants.GETSTATIC, ce.getSuperType(), name, type);
     }
-    
+
     public void super_putstatic(String name, Type type) {
         emit_field(Constants.PUTSTATIC, ce.getSuperType(), name, type);
     }
@@ -450,7 +451,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void getfield(Type owner, String name, Type type) {
         emit_field(Constants.GETFIELD, owner, name, type);
     }
-    
+
     public void putfield(Type owner, String name, Type type) {
         emit_field(Constants.PUTFIELD, owner, name, type);
     }
@@ -458,7 +459,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void getstatic(Type owner, String name, Type type) {
         emit_field(Constants.GETSTATIC, owner, name, type);
     }
-    
+
     public void putstatic(Type owner, String name, Type type) {
         emit_field(Constants.PUTSTATIC, owner, name, type);
     }
@@ -486,7 +487,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void super_invoke_constructor() {
         invoke_constructor(ce.getSuperType());
     }
-    
+
     public void invoke_constructor_this() {
         invoke_constructor(ce.getClassType());
     }
@@ -503,7 +504,7 @@ public class CodeEmitter extends LocalVariablesSorter {
                            sig.getDescriptor(),
                            isInterface);
     }
-    
+
     public void invoke_interface(Type owner, Signature sig) {
         emit_invoke(Constants.INVOKEINTERFACE, owner, sig, true);
     }
@@ -540,7 +541,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void super_invoke_constructor(Signature sig) {
         invoke_constructor(ce.getSuperType(), sig);
     }
-    
+
     public void new_instance_this() {
         new_instance(ce.getClassType());
     }
@@ -571,11 +572,11 @@ public class CodeEmitter extends LocalVariablesSorter {
     public Label make_label() {
         return new Label();
     }
-    
+
     public Local make_local() {
         return make_local(Constants.TYPE_OBJECT);
     }
-    
+
     public Local make_local(Type type) {
         return new Local(newLocal(type.getSize()), type);
     }
@@ -583,7 +584,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void checkcast_this() {
         checkcast(ce.getClassType());
     }
-    
+
     public void checkcast(Type type) {
         if (!type.equals(Constants.TYPE_OBJECT)) {
             emit_type(Constants.CHECKCAST, type);
@@ -593,7 +594,7 @@ public class CodeEmitter extends LocalVariablesSorter {
     public void instance_of(Type type) {
         emit_type(Constants.INSTANCEOF, type);
     }
-    
+
     public void instance_of_this() {
         instance_of(ce.getClassType());
     }
@@ -727,7 +728,7 @@ public class CodeEmitter extends LocalVariablesSorter {
             }
         }
     }
-    
+
     /**
      * If the argument is a primitive class, replaces the object
      * on the top of the stack with the unwrapped (primitive)

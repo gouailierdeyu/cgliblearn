@@ -21,7 +21,7 @@ import net.sf.cglib.core.*;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.Type;
-    
+
 class FastClassEmitter extends ClassEmitter {
     private static final Signature CSTRUCT_CLASS =
       TypeUtils.parseConstructor("Class");
@@ -48,7 +48,7 @@ class FastClassEmitter extends ClassEmitter {
     private static final Type INVOCATION_TARGET_EXCEPTION =
       TypeUtils.parseType("java.lang.reflect.InvocationTargetException");
     private static final Type[] INVOCATION_TARGET_EXCEPTION_ARRAY = { INVOCATION_TARGET_EXCEPTION };
-    
+
     public FastClassEmitter(ClassVisitor v, String className, Class type) {
         super(v);
 
@@ -69,13 +69,13 @@ class FastClassEmitter extends ClassEmitter {
         CollectionUtils.filter(methods, new DuplicatesPredicate());
         List constructors = new ArrayList(Arrays.asList(type.getDeclaredConstructors()));
         CollectionUtils.filter(constructors, vp);
-        
+
         // getIndex(String)
         emitIndexBySignature(methods);
 
         // getIndex(String, Class[])
         emitIndexByClassArray(methods);
-        
+
         // getIndex(Class[])
         e = begin_method(Constants.ACC_PUBLIC, CONSTRUCTOR_GET_INDEX, null);
         e.load_args();
@@ -112,6 +112,7 @@ class FastClassEmitter extends ClassEmitter {
     private void emitIndexBySignature(List methods) {
         CodeEmitter e = begin_method(Constants.ACC_PUBLIC, SIGNATURE_GET_INDEX, null);
         List signatures = CollectionUtils.transform(methods, new Transformer() {
+            @Override
             public Object transform(Object obj) {
                 return ReflectUtils.getSignature((Method)obj).toString();
             }
@@ -128,6 +129,7 @@ class FastClassEmitter extends ClassEmitter {
         if (methods.size() > TOO_MANY_METHODS) {
             // hack for big classes
             List signatures = CollectionUtils.transform(methods, new Transformer() {
+                @Override
                 public Object transform(Object obj) {
                     String s = ReflectUtils.getSignature((Method)obj).toString();
                     return s.substring(0, s.lastIndexOf(')') + 1);
@@ -163,7 +165,7 @@ class FastClassEmitter extends ClassEmitter {
     }
 
     private static void invokeSwitchHelper(final CodeEmitter e, List members, final int arg, final Type base) {
-        final List info = CollectionUtils.transform(members, MethodInfoTransformer.getInstance());        
+        final List info = CollectionUtils.transform(members, MethodInfoTransformer.getInstance());
         final Label illegalArg = e.make_label();
         Block block = e.begin_block();
         e.process_switch(getIntRange(info.size()), new ProcessSwitchCallback() {
@@ -204,18 +206,18 @@ class FastClassEmitter extends ClassEmitter {
                 indexes.put(it.next(), new Integer(index++));
             }
         }
-            
+
         public void processCase(Object key, Label end) {
             e.push(((Integer)indexes.get(key)).intValue());
             e.return_value();
         }
-        
+
         public void processDefault() {
             e.push(-1);
             e.return_value();
         }
     }
-    
+
     private static int[] getIntRange(int length) {
         int[] range = new int[length];
         for (int i = 0; i < length; i++) {

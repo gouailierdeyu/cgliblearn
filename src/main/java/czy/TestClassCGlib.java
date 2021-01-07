@@ -3,6 +3,9 @@ package czy;
 import net.sf.cglib.core.DebuggingClassWriter;
 import net.sf.cglib.proxy.*;
 
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.concurrent.Executor;
@@ -42,6 +45,7 @@ public class TestClassCGlib {
         String hh= test.print("czy.testcglib");
         System.out.println(hh);
         System.out.println(czy.YYY.ordinal());
+
     }
 
     /**
