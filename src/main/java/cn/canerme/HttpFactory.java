@@ -41,13 +41,7 @@ public class HttpFactory {
         return httpClient;
     }
 
-//    public static synchronized HttpClient getHttpClient(Class clientInterface){
-//        if (httpClient==null) {
-//            new HttpFactory(clientInterface);
-//        }
-//        return httpClient;
-//    }
-
+    @SuppressWarnings("unchecked")
     public static synchronized <T> T getHttpClient(Class<T> clientInterface){
 //        System.out.println(clientInterface.getGenericSuperclass());
         HttpProxyFilter httpProxyFilter = new HttpProxyFilter(Object.class,new Class[]{clientInterface});
@@ -57,17 +51,11 @@ public class HttpFactory {
         enhancer.setInterfaces(new Class[]{clientInterface});
         enhancer.setCallbackFilter(httpProxyFilter);
         enhancer.setCallbacks(httpProxyFilter.getCallbacks());
-        T httpClient=(T)enhancer.create();
-        return httpClient;
-//        if (httpClient==null) {
-//            new HttpFactory(clientInterface);
-//        }
-//        return httpClient;
+        return (T)enhancer.create();
+
     }
 
     public static void main(String[] args) throws Throwable {
-//        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(HttpClient.class);
-//        Arrays.stream(httpProxyFilter.getCallbacks()).forEach(System.out::println);
         HttpClient httpClient = HttpFactory.getHttpClient();
         String s = httpClient.get("S", new String[]{"s","a"}, null);
         System.out.println(s);
