@@ -15,6 +15,6 @@ import java.util.HashMap;
 @Target(ElementType.METHOD)
 public @interface GET {
    String uri() default  "";
-   String query() default "";
+   String[] query() default {};
    String[] headers() default {};
 }

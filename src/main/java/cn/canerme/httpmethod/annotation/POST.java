@@ -1,6 +1,10 @@
 package cn.canerme.httpmethod.annotation;
 
+import net.sf.cglib.reflect.MulticastDelegate;
+
 import java.lang.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * UTF-8
@@ -8,12 +12,18 @@ import java.lang.annotation.*;
  *
  * @version 1.0
  */
+
+/**
+ * post传递参数有三种可能
+ * 1.传递string字符串查询
+ * 2.直接传递Object转json
+ * 3.传递一个map，转json
+ */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface POST {
-    String value();
-    String uri() ;
-    String query();
+    String uri() default  "";
+    String[] headers() default {};
 }

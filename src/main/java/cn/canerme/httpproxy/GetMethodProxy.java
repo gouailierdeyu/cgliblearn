@@ -21,7 +21,7 @@ import java.net.http.HttpResponse;
 public class GetMethodProxy implements MethodInterceptor {
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        String uri=null;String query = null;String [] headers=null;
+        String uri=null;String[] query = null;String [] headers=null;
         Annotation[] annotations = method.getAnnotations();
         for (Annotation annotation : annotations) {
             if (annotation instanceof GET) {
@@ -34,9 +34,9 @@ public class GetMethodProxy implements MethodInterceptor {
         }
 
         if (args[0]!=null)
-            uri= (String) args[1];
-        if (args[1]!=null)
-            query = (String) args[1];
+            uri= (String) args[0];
+        if (args[1]!=null )
+            query = (String[]) args[1];
         if (args[2]!=null)
             headers = (String[]) args[2];
         return doGet(uri,query,headers);
@@ -51,20 +51,36 @@ public class GetMethodProxy implements MethodInterceptor {
      * @throws IOException 网络IO异常
      * @throws InterruptedException 中断异常
      */
-    public String doGet(String uri,String query,String [] headers ) throws IOException, InterruptedException {
-        if(query!=null){
+    public String doGet(String uri,String[] query,String [] headers ) throws IOException, InterruptedException {
+        if(query!=null && query.length!=0){
+            if (query.length%2!=0){
+                throw new IllegalArgumentException("http query must be key1=value1&key2=value2, so the query length must be even.");
+            }
+            StringBuilder q= new StringBuilder(query[0]);
+            for (int i = 1; i < query.length; i++) {
+                if (i%2==0){
+                    q.append("&").append(query[i]);
+                }else {
+                    q.append("=").append(query[i]);
+                }
+
+            }
             if (uri.endsWith("?"))
-                uri = uri+query;
+                uri = uri+q;
             else
-                uri = uri+"?"+query;
+                uri = uri+"?"+q;
         }
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest.Builder builder;
 //        System.out.println(headers.length);
-        if (headers!=null && headers.length!=0)
-             builder = HttpRequest.newBuilder(URI.create(uri)).GET().headers(headers);
-        else
-             builder = HttpRequest.newBuilder(URI.create(uri)).GET();
+        if (headers!=null && headers.length!=0) {
+            if (headers.length%2!=0){
+                throw new IllegalArgumentException("http headers must be key1=value1&key2=value2, so the headers length must be even.");
+            }
+            builder = HttpRequest.newBuilder(URI.create(uri)).GET().headers(headers);
+        } else {
+            builder = HttpRequest.newBuilder(URI.create(uri)).GET();
+        }
         HttpResponse<String> httpResponse = httpClient.send(builder.build(), HttpResponse.BodyHandlers.ofString());
         return httpResponse.body();
     }

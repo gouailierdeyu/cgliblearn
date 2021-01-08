@@ -2,6 +2,9 @@ package cn.canerme.test;
 
 import cn.canerme.httpmethod.annotation.GET;
 import cn.canerme.httpmethod.annotation.POST;
+import cn.canerme.httpmethod.annotation.RequestBody;
+
+import java.util.Map;
 
 /**
  * UTF-8
@@ -13,4 +16,7 @@ public interface mymsg  {
 
     @GET(uri = "http://www.baidu.com")
     String search();
+
+    @POST(uri = "")
+    String post(@RequestBody Map s);
 }

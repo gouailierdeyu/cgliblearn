@@ -20,6 +20,9 @@ public class HttpFactory {
 
     public static HttpClient httpClient = null;
     private HttpFactory() {
+    }
+
+    public static HttpClient newHttpClient(){
         HttpProxyFilter httpProxyFilter = new HttpProxyFilter(Object.class,new Class[]{HttpClient.class});
         Enhancer enhancer =new Enhancer();
         enhancer.setUseFactory(false);
@@ -28,11 +31,12 @@ public class HttpFactory {
         enhancer.setCallbackFilter(httpProxyFilter);
         enhancer.setCallbacks(httpProxyFilter.getCallbacks());
         httpClient =(HttpClient)enhancer.create();
+        return httpClient;
     }
 
     public static synchronized HttpClient getHttpClient(){
         if (httpClient==null) {
-            new HttpFactory();
+            httpClient = newHttpClient();
         }
         return httpClient;
     }
@@ -65,7 +69,7 @@ public class HttpFactory {
 //        HttpProxyFilter httpProxyFilter = new HttpProxyFilter(HttpClient.class);
 //        Arrays.stream(httpProxyFilter.getCallbacks()).forEach(System.out::println);
         HttpClient httpClient = HttpFactory.getHttpClient();
-        String s = httpClient.get("S", "s", null);
+        String s = httpClient.get("S", new String[]{"s","a"}, null);
         System.out.println(s);
         httpClient.post(null);
     }

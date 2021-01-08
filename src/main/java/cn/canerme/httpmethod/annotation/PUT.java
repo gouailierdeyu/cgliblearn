@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface PUT {
-    String value();
-    String uri() ;
-    String query();
+    String uri() default  "";
+    String query() default "";
+    String[] headers() default {};
 }

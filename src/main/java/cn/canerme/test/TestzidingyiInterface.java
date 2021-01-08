@@ -2,7 +2,6 @@ package cn.canerme.test;
 
 import cn.canerme.HttpFactory;
 import cn.canerme.httpclient.HttpClient;
-import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class TestzidingyiInterface {
-  @Test
+
+
   public void sendmsg(){
     mymsg httpClient = HttpFactory.getHttpClient( mymsg.class);
     System.out.println(httpClient.search());
