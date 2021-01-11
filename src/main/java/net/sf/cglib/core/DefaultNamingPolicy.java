@@ -18,6 +18,7 @@ package net.sf.cglib.core;
 import java.util.Set;
 
 /**
+ * 定义生成子类的名字
  * The default policy used by {@link AbstractClassGenerator}.
  * Generates names such as
  * <p><code>net.sf.cglib.Foo$$EnhancerByCGLIB$$38272841</code><p>

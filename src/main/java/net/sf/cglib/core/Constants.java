@@ -18,6 +18,7 @@ package net.sf.cglib.core;
 import org.objectweb.asm.Type;
 
 /**
+ * 增加了一些常量，在Opcodes的基础上
  * @author Juozas Baliuka <a href="mailto:baliuka@mwm.lt">baliuka@mwm.lt</a>
  * @version $Id: Constants.java,v 1.21 2006/03/05 02:43:19 herbyderby Exp $
  */
@@ -31,7 +32,7 @@ public interface Constants extends org.objectweb.asm.Opcodes {
 
     public static final Signature SIG_STATIC =
       TypeUtils.parseSignature("void <clinit>()");
-    
+
     public static final Type TYPE_OBJECT_ARRAY = TypeUtils.parseType("Object[]");
     public static final Type TYPE_CLASS_ARRAY = TypeUtils.parseType("Class[]");
     public static final Type TYPE_STRING_ARRAY = TypeUtils.parseType("String[]");

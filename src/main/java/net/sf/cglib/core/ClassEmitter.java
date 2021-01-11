@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * 生成一个类
- * 使用asm字节码去生成一个类，包含构造方法，字段，方法等等
+ * 包装使用asm字节码去生成一个类，包含构造方法，字段，方法等等
  * @author Juozas Baliuka, Chris Nokleberg
  */
 public class ClassEmitter extends ClassTransformer {

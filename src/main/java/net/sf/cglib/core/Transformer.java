@@ -15,6 +15,9 @@
  */
 package net.sf.cglib.core;
 
+/**
+ * 实现转换方法，转换类型，自己实现
+ */
 public interface Transformer {
     Object transform(Object value);
 }

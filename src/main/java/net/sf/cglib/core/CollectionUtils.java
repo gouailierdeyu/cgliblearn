@@ -19,6 +19,10 @@ import java.util.*;
 import java.lang.reflect.Array;
 
 /**
+ * 集合工具类
+ * 转换map的键值对，键->值 变为 值->键
+ * 过滤集合中满足断言的元素
+ * 转换集合的每个元素等等
  * @author Chris Nokleberg
  * @version $Id: CollectionUtils.java,v 1.7 2004/06/24 21:15:21 herbyderby Exp $
  */
@@ -72,5 +76,5 @@ public class CollectionUtils {
         }
         return indexes;
     }
-}    
-    
+}
+

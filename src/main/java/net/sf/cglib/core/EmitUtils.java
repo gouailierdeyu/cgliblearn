@@ -23,6 +23,11 @@ import net.sf.cglib.core.internal.CustomizerRegistry;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.Type;
 
+/**
+ * 生成类的一些常见方法的工具类
+ * 比如hashCode()这些常见的一般内容不需要开发者修改的方法
+ * 比如无参构造函数这类 {@link EmitUtils#null_constructor(ClassEmitter)}，这个方法很简单，建议根据他来学习CodeEmitter
+ */
 public class EmitUtils {
     private static final Signature CSTRUCT_NULL =
       TypeUtils.parseConstructor("");

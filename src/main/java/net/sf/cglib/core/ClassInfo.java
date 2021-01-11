@@ -21,6 +21,7 @@ import org.objectweb.asm.Type;
 /**
  * 类信息类型
  * 包括类的类型 父类 接口，访问修饰符
+ * 虚类用到的时候再实现
  */
 abstract public class ClassInfo {
 

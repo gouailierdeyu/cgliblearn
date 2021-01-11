@@ -18,6 +18,7 @@ package net.sf.cglib.core;
 import org.objectweb.asm.Type;
 
 /**
+ * 不了解，再看
  * Customizes key types for {@link KeyFactory} when building equals, hashCode, and toString.
  * For customization of field types, use {@link FieldTypeCustomizer}
  *

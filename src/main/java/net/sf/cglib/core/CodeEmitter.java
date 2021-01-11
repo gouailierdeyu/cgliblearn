@@ -20,7 +20,7 @@ import java.util.*;
 import org.objectweb.asm.*;
 
 /**
- * 生成需要的代码
+ * 生成需要的代码，主要是生成方法中的代码，一步一步读数据啊，操作数据啊，循环啊if_jump，判断啊
  * @author Juozas Baliuka, Chris Nokleberg
  */
 public class CodeEmitter extends LocalVariablesSorter {

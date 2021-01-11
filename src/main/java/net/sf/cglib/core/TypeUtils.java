@@ -18,6 +18,9 @@ package net.sf.cglib.core;
 import java.util.*;
 import org.objectweb.asm.Type;
 
+/**
+ * 类型工具，获取类的信息
+ */
 public class TypeUtils {
     private static final Map transforms = new HashMap();
     private static final Map rtransforms = new HashMap();
@@ -62,7 +65,7 @@ public class TypeUtils {
     public static boolean isAbstract(int access) {
         return (Constants.ACC_ABSTRACT & access) != 0;
     }
-    
+
     public static boolean isInterface(int access) {
         return (Constants.ACC_INTERFACE & access) != 0;
     }
@@ -70,15 +73,15 @@ public class TypeUtils {
     public static boolean isPrivate(int access) {
         return (Constants.ACC_PRIVATE & access) != 0;
     }
-    
+
     public static boolean isSynthetic(int access) {
         return (Constants.ACC_SYNTHETIC & access) != 0;
     }
-    
+
     public static boolean isBridge(int access) {
     	return (Constants.ACC_BRIDGE & access) != 0;
     }
-    
+
     // getPackage returns null on JDK 1.2
     public static String getPackageName(Type type) {
         return getPackageName(getClassName(type));
@@ -88,7 +91,7 @@ public class TypeUtils {
         int idx = className.lastIndexOf('.');
         return (idx < 0) ? "" : className.substring(0, idx);
     }
-    
+
     public static String upperFirst(String s) {
         if (s == null || s.length() == 0) {
             return s;

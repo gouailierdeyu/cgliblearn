@@ -20,11 +20,21 @@ import org.objectweb.asm.ClassVisitor;
 
 import java.util.*;
 
+/**
+ * 获取类名
+ * 作者接下来要做的事，是利用ClassReader缓存要找的那个类的类名，在执行accept方法之前
+ * 估计是读取一个类的字节码特别耗时，所以准备缓存一下，同时也提供了早退出accept的方法。
+ */
 // TODO: optimize (ClassReader buffers entire class before accept)
 public class ClassNameReader {
     private ClassNameReader() {
     }
 
+    /**
+     * EARLY_EXIT这个异常是为了在accept方法执行中，
+     * 执行完ClassVisitor.visit()之后，立马退出方法。
+     * 聪明，利用运行时异常提前退出一个方法体。
+     */
     private static final EarlyExitException EARLY_EXIT = new EarlyExitException();
     private static class EarlyExitException extends RuntimeException { }
 

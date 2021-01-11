@@ -17,6 +17,10 @@ package net.sf.cglib.core;
 
 import java.lang.reflect.*;
 
+/**
+ * 把java中定义的一个方法，反射类型为Method.
+ * 转换成cglib中的MethodInfo
+ */
 public class MethodInfoTransformer implements Transformer
 {
     private static final MethodInfoTransformer INSTANCE = new MethodInfoTransformer();

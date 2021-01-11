@@ -23,6 +23,11 @@ import org.objectweb.asm.Opcodes;
 import java.io.*;
 import java.lang.reflect.Constructor;
 
+/**
+ * ClassVisitor的子类都是一些需要对类进行访问的类。需要构造类中属性，，方法的类
+ * ClassReader是对类字节码进行解析，解析出常量，类名，方法名等等
+ * 将生成的类的字节码返回，或者设置了打印.class文件的话，将字节码输出到文件中
+ */
 public class DebuggingClassWriter extends ClassVisitor {
 
     public static final String DEBUG_LOCATION_PROPERTY = "cglib.debugLocation";

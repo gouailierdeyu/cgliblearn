@@ -18,11 +18,15 @@ package net.sf.cglib.core;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Type;
 
+/**
+ * 方法信息类，包括方法所在的类信息，修饰符，签名，异常。
+ * 虚类，在需要用到的时候才实现
+ */
 abstract public class MethodInfo {
 
     protected MethodInfo() {
     }
-    
+
     abstract public ClassInfo getClassInfo();
     abstract public int getModifiers();
     abstract public Signature getSignature();
