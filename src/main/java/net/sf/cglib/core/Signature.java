@@ -20,7 +20,7 @@ import org.objectweb.asm.Type;
 /**
  * 方法签名，包括方法名称和简写描述符
  *  简写描述符 ()VZBCDFIJS  就是类型的缩写加()
- *  如：(Ljava/lang/Object;)V
+ *  如：(Ljava/lang/Object;)V  （参数列表）返回值
  *  (Z)V
  * A representation of a method signature, containing the method name,
  * return type, and parameter types.

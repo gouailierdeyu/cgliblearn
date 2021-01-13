@@ -25,6 +25,15 @@ import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.Collections;
 import java.util.List;
+/**
+ * 这个类就是为了构造出一个键，这个键是通过newInstance创建的键，
+ * 生成一个类，可以处理多值键（一个键对应多个值），
+ * 首先，定义一个接口描述键。
+ * 接口只能有一个接口方法叫newInstance，返回值Object。参数可以自定义。
+ * 一旦创建完毕了一个keyfactory,就可以通过定义的newInstance方法获取一个新的键
+ *
+ * 只有当生成的key1.equals(key2)以及是同一工厂生产的时候，key1和key2之间的hashCode才会相等
+ */
 
 /**
  * Generates classes to handle multi-valued keys, for use in things such as Maps and Sets.
