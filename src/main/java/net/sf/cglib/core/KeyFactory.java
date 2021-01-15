@@ -26,6 +26,19 @@ import java.security.ProtectionDomain;
 import java.util.Collections;
 import java.util.List;
 /**
+ *
+ * 看完源码得出结论：
+ * 主要根据newInstance(int i, String s);来生成一个类的基础方法
+ * 包括  无参构造函数
+ * 有参构造函数，构造函数参数列表就是newInstance()的参数列表
+ * 工厂方法
+ * toString()
+ * hashCode()
+ * equals()
+ *
+ * 其中 KeyFactoryCustomizer 用来定义想要生成类含有的一些自定义方法
+ *
+ * --------------------------------------------------------
  * 这个类就是为了构造出一个键，这个键是通过newInstance创建的键，
  * 生成一个类，可以处理多值键（一个键对应多个值），
  * 首先，定义一个接口描述键。
@@ -82,7 +95,8 @@ abstract public class KeyFactory {
     private static final Signature GET_SORT =
       TypeUtils.parseSignature("int getSort()");
 
-    //generated numbers:
+    //generated numbers:这些数字什么意思
+    // 这些数字用在计算 hashcode
     private final static int PRIMES[] = {
                11,         73,        179,       331,
               521,        787,       1213,      1823,

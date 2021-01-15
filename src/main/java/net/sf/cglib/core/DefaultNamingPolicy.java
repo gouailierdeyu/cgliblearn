@@ -50,7 +50,7 @@ public class DefaultNamingPolicy implements NamingPolicy {
             Integer.toHexString(STRESS_HASH_CODE ? 0 : key.hashCode());
         String attempt = base;
         int index = 2;
-        while (names.evaluate(attempt))
+        while (names.evaluate(attempt)) // 防止生成类重名了，判断一下已经生成的类中有没有和想要生成的类的名字一样，如果一样，则添加后缀，再判断。
             attempt = base + "_" + index++;
         return attempt;
     }

@@ -187,6 +187,11 @@ implements ClassGenerator
         this.className = className;
     }
 
+    /**
+     * 使用命名策略生成子类的全类名
+     * @param nameTestPredicate 类名字重名判断
+     * @return 生成的类名
+     */
     private String generateClassName(Predicate nameTestPredicate) {
         return namingPolicy.getClassName(namePrefix, source.name, key, nameTestPredicate);
     }
@@ -364,6 +369,10 @@ implements ClassGenerator
                     // ignore
                 }
             }
+            /**
+             *  这里逻辑比较重要，是主要的生成类的策略
+             *  其中会调用自定义实现的generateClass(cw);函数来实际生成类的字节码。
+             */
             byte[] b = strategy.generate(this); //默认策略构建类的字节码
             // new ClassReader(b)这个b就是整个类的字节码，建一个类读取器，保存类的所有信息
             String className = ClassNameReader.getClassName(new ClassReader(b));
