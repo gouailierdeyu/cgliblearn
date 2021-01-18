@@ -17,6 +17,7 @@ package net.sf.cglib.reflect;
 
 import java.lang.reflect.Method;
 import junit.framework.*;
+import net.sf.cglib.core.DebuggingClassWriter;
 
 /**
  * @version $Id: TestDelegates.java,v 1.4 2004/06/24 21:15:16 herbyderby Exp $
@@ -28,6 +29,7 @@ public class TestDelegates extends net.sf.cglib.CodeGenTestCase {
     }
 
     public void testConstructor() throws Throwable {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,"E:\\study\\java\\cgliblearn\\src\\main\\java\\enhancer");
         StringMaker maker = (StringMaker)ConstructorDelegate.create(String.class, StringMaker.class);
         assertTrue("nil".equals(maker.newInstance("vanilla".toCharArray(), 2, 3)));
     }
@@ -49,6 +51,7 @@ public class TestDelegates extends net.sf.cglib.CodeGenTestCase {
     }
 
     public void testFancy() throws Throwable {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,"E:\\study\\java\\cgliblearn\\src\\main\\java\\enhancer");
         Substring delegate = (Substring)MethodDelegate.create("CGLIB", "substring", Substring.class);
         assertTrue("LI".equals(delegate.substring(2, 4)));
     }

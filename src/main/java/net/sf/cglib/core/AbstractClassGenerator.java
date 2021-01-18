@@ -59,13 +59,13 @@ implements ClassGenerator
     private ClassLoader classLoader;
 
     /**
-     * 生成类的前缀，通常是设置的父类名
+     * 生成类的前缀，通常是设置的父类名（被代理的父类名）
      */
     private String namePrefix;
 
     /**
-     * key是生成类吗？还是父类？
-     * ?
+     * key 是key接口（keyinterface）的全限定类名
+     *
      */
     private Object key;
     private boolean useCache = DEFAULT_USE_CACHE;
@@ -146,6 +146,12 @@ implements ClassGenerator
             return uniqueNamePredicate;
         }
 
+        /**
+         * 重新生成一个类的类型（class）或者从缓存中取出类的实例
+         * @param gen 生成器实例
+         * @param useCache 是否使用缓存
+         * @return 子类类的类型或者实例
+         */
         public Object get(AbstractClassGenerator gen, boolean useCache) {
             if (!useCache) {
               return gen.generate(ClassLoaderData.this);
@@ -313,6 +319,11 @@ implements ClassGenerator
     	return null;
     }
 
+    /**
+     * key 是key接口的全限定类名
+     * @param key key 是key接口的全限定类名
+     * @return 返回实现key接口的子类
+     */
     protected Object create(Object key) {
         try {
             ClassLoader loader = getClassLoader();
@@ -332,6 +343,9 @@ implements ClassGenerator
             }
             this.key = key;
             Object obj = data.get(this, getUseCache());
+            // 重新生成的  obj是类的类型（Class）走firstInstance（）
+            // 从缓存中取出就是子类的实例，走nextInstance()
+            // 但是这两个方法的具体实现，可以自定义
             if (obj instanceof Class) {
                 return firstInstance((Class) obj);
             }
@@ -345,6 +359,11 @@ implements ClassGenerator
         }
     }
 
+    /**
+     * 根据类加载器相关数据，生成类字节码，再生成类
+     * @param data 类加载器数据
+     * @return 生成类的class。
+     */
     protected Class generate(ClassLoaderData data) {
         Class gen;
         Object save = CURRENT.get();

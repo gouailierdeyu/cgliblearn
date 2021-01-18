@@ -22,6 +22,7 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Type;
 
 /**
+ * 构造器委托类
  * @author Chris Nokleberg
  * @version $Id: ConstructorDelegate.java,v 1.20 2006/03/05 02:43:19 herbyderby Exp $
  */

@@ -24,6 +24,10 @@ import org.objectweb.asm.Type;
 // TODO: don't require exact match for return type
 
 /**
+ * 方法委托
+ * 托是指向另一个方法的类型安全指针。
+ * 这个实用程序将构造一个代理，将方法调用转发到任何具有相同签名的方法。
+ *
  * <b>DOCUMENTATION FROM APACHE AVALON DELEGATE CLASS</b>
  *
  * <p>
@@ -136,6 +140,7 @@ abstract public class MethodDelegate {
         return (other != null && target == other.target) && eqMethod.equals(other.eqMethod);
     }
 
+    @Override
     public int hashCode() {
         return target.hashCode() ^ eqMethod.hashCode();
     }

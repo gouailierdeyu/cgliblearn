@@ -26,7 +26,7 @@ import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Type;
 
 /**
- * 反射工具类，利用jdk反射相关的类创建对象实例，构建方法签名等
+ * 反射工具类，利用jdk反射相关的类创建对象实例，获取方法，构建方法签名等
  * @version $Id: ReflectUtils.java,v 1.30 2009/01/11 19:47:49 herbyderby Exp $
  */
 public class ReflectUtils {
@@ -438,6 +438,12 @@ public class ReflectUtils {
     }
 
 
+    /**
+     * 从只能有一个方法的接口类中找出定义的方法
+     *
+     * @param iface 只有一个方法的接口类
+     * @return 接口方法
+     */
     public static Method findInterfaceMethod(Class iface) {
         if (!iface.isInterface()) {
             throw new IllegalArgumentException(iface + " is not an interface");
