@@ -47,6 +47,7 @@ public class UndeclaredThrowableStrategy extends DefaultGeneratorStrategy {
     }
 
     private static final MethodFilter TRANSFORM_FILTER = new MethodFilter() {
+        @Override
         public boolean accept(int access, String name, String desc, String signature, String[] exceptions) {
             return !TypeUtils.isPrivate(access) && name.indexOf('$') < 0;
         }

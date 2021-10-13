@@ -27,28 +27,29 @@ public class TestNoOp extends CodeGenTestCase {
             return "foo";
         }
     }
-    
+
     public void testNoOp() {
         Object obj = Enhancer.create(Foo.class, NoOp.INSTANCE);
+        System.out.println(obj.toString());
         assertTrue("foo".equals(obj.toString()));
     }
 
     public TestNoOp(String testName) {
         super(testName);
     }
-    
+
     public static void main(String[] args) {
         junit.textui.TestRunner.run(suite());
     }
-    
+
     public static Test suite() {
         return new TestSuite(TestNoOp.class);
     }
-    
+
     public void perform(ClassLoader loader) throws Throwable {
     }
-    
+
     public void testFailOnMemoryLeak() throws Throwable {
     }
-    
+
 }

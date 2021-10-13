@@ -30,6 +30,11 @@ public class TestDispatcher extends CodeGenTestCase {
         String foo();
     }
 
+
+    interface Foo1 {
+        Object foo();
+    }
+
     interface Bar {
         String bar();
     }
@@ -51,11 +56,13 @@ public class TestDispatcher extends CodeGenTestCase {
         Callback[] callbacks = new Callback[]{
             new Dispatcher() {
                 public Object loadObject() {
+                    System.out.println("loading Foo object");
                     return impls[0];
                 }
             },
             new Dispatcher() {
                 public Object loadObject() {
+                    System.out.println("loading Bar object");
                     return impls[1];
                 }
             }
@@ -99,6 +106,30 @@ public class TestDispatcher extends CodeGenTestCase {
     }
 
     public void testFailOnMemoryLeak() throws Throwable {
+    }
+
+    public void testDispatcher(){
+        Foo1 foo = new Foo1() {
+            public Object foo() {
+                return "foo1";
+            }
+        };
+
+        Callback[] callbacks = new Callback[]{
+                new Dispatcher() {
+                    public Object loadObject() {
+                        return foo;
+                    }
+                }
+        };
+
+        Enhancer e = new Enhancer();
+        e.setInterfaces(new Class[]{ Foo1.class});
+        e.setCallbacks(callbacks);
+        Object obj = e.create();
+
+        assertTrue((((Foo1)obj).foo()).equals("foo1"));
+
     }
 
 }

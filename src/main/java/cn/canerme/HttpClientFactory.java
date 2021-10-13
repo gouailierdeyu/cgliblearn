@@ -8,7 +8,10 @@ import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 
 import java.beans.EventHandler;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * UTF-8
@@ -16,10 +19,10 @@ import java.util.Arrays;
  *
  * @version 1.0
  */
-public class HttpFactory {
+public final class HttpClientFactory {
 
     public static HttpClient httpClient = null;
-    private HttpFactory() {
+    private HttpClientFactory() {
     }
 
     public static HttpClient newHttpClient(){
@@ -53,12 +56,5 @@ public class HttpFactory {
         enhancer.setCallbacks(httpProxyFilter.getCallbacks());
         return (T)enhancer.create();
 
-    }
-
-    public static void main(String[] args) throws Throwable {
-        HttpClient httpClient = HttpFactory.getHttpClient();
-        String s = httpClient.get("S", new String[]{"s","a"}, null);
-        System.out.println(s);
-        httpClient.post(null);
     }
 }

@@ -61,7 +61,7 @@ import org.objectweb.asm.Label;
  * For an almost drop-in replacement for
  * <code>java.lang.reflect.Proxy</code>, see the {@link Proxy} class.
  */
-public class Enhancer extends AbstractClassGenerator
+public class  Enhancer extends AbstractClassGenerator
 {
     /**
      * 过滤器设置为0，接受0这个位置的callback,就是总共有一个callback,接受它。
@@ -141,7 +141,7 @@ public class Enhancer extends AbstractClassGenerator
       TypeUtils.parseSignature("void CGLIB$BIND_CALLBACKS(Object)");
 
     private EnhancerFactoryData currentData;
-    private Object currentKey;
+    private Object currentKey; // 通过EnhancerKey实例化出来的对象
 
     /** Internal interface, only public due to ClassLoader issues. */
     public interface EnhancerKey {
@@ -218,7 +218,7 @@ public class Enhancer extends AbstractClassGenerator
      * @param filter the callback filter to use when generating a new class
      * @see #setCallbacks
      */
-    // 设置回调的过滤器，每个方法通过过滤器过滤出回调函数数组的index (1，2，3)，选择一个回调执行
+    // 设置回调的过滤器，每个方法通过过滤器过滤出回调函数数组的index (0,1,2,3)，选择一个回调执行
     public void setCallbackFilter(CallbackFilter filter) {
         this.filter = filter;
     }
@@ -311,7 +311,7 @@ public class Enhancer extends AbstractClassGenerator
      * Generate a new class if necessary and uses the specified
      * callbacks (if any) to create a new object instance.
      * Uses the no-arg constructor of the superclass.
-     * @return a new instance
+     * @return a new instance 生成子类
      */
     public Object create() {
         classOnly = false;
@@ -325,7 +325,7 @@ public class Enhancer extends AbstractClassGenerator
      * Uses the constructor of the superclass matching the <code>argumentTypes</code>
      * parameter, with the given arguments.
      * @param argumentTypes 构造函数的参数的类型
-     * @param arguments 构造函数参数
+     * @param arguments 构造函数的参数
      * @return a new instance
      */
     public Object create(Class[] argumentTypes, Object[] arguments) {
@@ -345,6 +345,7 @@ public class Enhancer extends AbstractClassGenerator
      * called during the constructor will not be intercepted. To avoid this problem,
      * use the multi-arg <code>create</code> method.
      * @see #create(Class[], Object[])
+     * 创建了一个子类类对象
      */
     public Class createClass() {
         classOnly = true;
@@ -359,6 +360,9 @@ public class Enhancer extends AbstractClassGenerator
         serialVersionUID = sUID;
     }
 
+    /**
+     * 预先验证需要的参数是否完备
+     */
     private void preValidate() {
         if (callbackTypes == null) {
             callbackTypes = CallbackInfo.determineTypes(callbacks, false);
@@ -412,6 +416,7 @@ public class Enhancer extends AbstractClassGenerator
     }
 
     /**
+     * 缓存生成类的结果
      * The idea of the class is to cache relevant java.lang.reflect instances so
      * proxy-class can be instantiated faster that when using {@link ReflectUtils#newInstance(Class, Class[], Object[])}
      * and {@link Enhancer#setThreadCallbacks(Class, Callback[])}
@@ -480,7 +485,13 @@ public class Enhancer extends AbstractClassGenerator
             }
         }
     }
-
+   /**
+    * KEY_FACTORY 和 key 是同一个类型的不同实例，是enhancer的子类
+    * 用来生成想要的子类
+    *
+    * 通过 newInstance() 这个方法
+    * 构造出生成子类
+    */
     private Object createHelper() {
         preValidate();
         Object key = KEY_FACTORY.newInstance((superclass != null) ? superclass.getName() : null,
@@ -574,6 +585,11 @@ public class Enhancer extends AbstractClassGenerator
         CollectionUtils.filter(methods, new RejectModifierPredicate(Constants.ACC_FINAL));
     }
 
+    /**
+     * 首先判断父类，如果父类是finall的，则不能继承
+     * @param v 用来实际操作类构建
+     * @throws Exception
+     */
     @Override
     public void generateClass(ClassVisitor v) throws Exception {
         Class sc = (superclass == null) ? Object.class : superclass;
@@ -669,6 +685,7 @@ public class Enhancer extends AbstractClassGenerator
     }
 
     /**
+     * 过滤掉父类中不可见的（私有）构造函数，子类就可以保留可见的父类构造函数
      * Filter the list of constructors from the superclass. The
      * constructors which remain will be included in the generated
      * class. The default implementation is to filter out all private

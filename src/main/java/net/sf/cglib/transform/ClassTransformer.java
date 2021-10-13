@@ -18,6 +18,9 @@ package net.sf.cglib.transform;
 import net.sf.cglib.core.Constants;
 import org.objectweb.asm.ClassVisitor;
 
+/**
+ * 在cglib中对class的访问和asm对class的访问之间的一个恰当转换层
+ */
 public abstract class ClassTransformer extends ClassVisitor {
     public ClassTransformer() {
 	super(Constants.ASM_API);

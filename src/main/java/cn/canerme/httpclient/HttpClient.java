@@ -13,12 +13,12 @@ import java.util.Map;
 public interface HttpClient {
 
     // post组 用于发起新增请求
-    int post(String uri, Object query, String[] headers) throws Throwable;
-    int post(String uri, Object query) throws Throwable;
-    int post(String uri) throws Throwable;
+    String post(String uri, Object query, String[] headers) throws Throwable;
+    String post(String uri, Object query) throws Throwable;
+    String post(String uri) throws Throwable;
 
-    int post(String uri, String[] query, String[] headers) throws Throwable;
-    int post(String uri, String[] query) throws Throwable;
+    String post(String uri, String[] query, String[] headers) throws Throwable;
+    String post(String uri, String[] query) throws Throwable;
 
     // get组 用于发起查询请求
     String get(String uri, String[] query, String[] headers) throws Throwable;

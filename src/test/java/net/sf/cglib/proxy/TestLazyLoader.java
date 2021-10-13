@@ -24,30 +24,31 @@ public class TestLazyLoader extends CodeGenTestCase  {
     public void testLazyLoader() {
         LazyLoader loader = new LazyLoader() {
                 public Object loadObject() {
-                    System.err.println("loading object");
+                    System.out.println("loading object");
                     return "foo";
                 }
             };
         Object obj = Enhancer.create(Object.class, loader);
+        System.out.println(obj.toString());
         assertTrue("foo".equals(obj.toString()));
     }
 
     public TestLazyLoader(String testName) {
         super(testName);
     }
-    
+
     public static void main(String[] args) {
         junit.textui.TestRunner.run(suite());
     }
-    
+
     public static Test suite() {
         return new TestSuite(TestLazyLoader.class);
     }
-    
+
     public void perform(ClassLoader loader) throws Throwable {
     }
-    
+
     public void testFailOnMemoryLeak() throws Throwable {
     }
-    
+
 }

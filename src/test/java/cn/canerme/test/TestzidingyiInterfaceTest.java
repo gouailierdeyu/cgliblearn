@@ -1,10 +1,12 @@
 package cn.canerme.test;
 
-import cn.canerme.HttpFactory;
+import cn.canerme.HttpClientFactory;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -19,7 +21,7 @@ public class TestzidingyiInterfaceTest {
 
     @Test
     public void sendmsg(){
-        Imymsg httpClient = HttpFactory.getHttpClient( Imymsg.class);
+        Imymsg httpClient = HttpClientFactory.getHttpClient(Imymsg.class);
         System.out.println(httpClient.search());
 //        StringBuilder
     }

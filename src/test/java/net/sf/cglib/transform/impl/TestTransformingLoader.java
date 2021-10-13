@@ -30,6 +30,7 @@ import org.objectweb.asm.Type;
 public class TestTransformingLoader extends net.sf.cglib.CodeGenTestCase {
 
     private static final ClassFilter TEST_FILTER = new ClassFilter() {
+        @Override
         public boolean accept(String name) {
             System.err.println("Loading " + name);
             return name.startsWith("net.sf.cglib.");
@@ -99,13 +100,13 @@ public class TestTransformingLoader extends net.sf.cglib.CodeGenTestCase {
     private static Class loadHelper( final ClassTransformer t, Class target) throws ClassNotFoundException {
         ClassLoader parent = TestTransformingLoader.class.getClassLoader();
         TransformingClassLoader loader = new TransformingClassLoader(parent, TEST_FILTER,
-        
+
            new ClassTransformerFactory(){
                   public ClassTransformer  newInstance(){
                      return t;
                   }
         }
-        
+
         );
         return loader.loadClass(target.getName());
     }
@@ -113,19 +114,19 @@ public class TestTransformingLoader extends net.sf.cglib.CodeGenTestCase {
     public TestTransformingLoader(String testName) {
         super(testName);
     }
-    
+
     public static void main(String[] args) {
         junit.textui.TestRunner.run(suite());
     }
-    
+
     public static Test suite() {
         return new TestSuite(TestTransformingLoader.class);
     }
 
     public void perform(ClassLoader loader) throws Throwable {
-    }    
-    
+    }
+
     public void testFailOnMemoryLeak() throws Throwable {
     }
-    
+
 }

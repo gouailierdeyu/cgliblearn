@@ -96,7 +96,7 @@ abstract public class KeyFactory {
       TypeUtils.parseSignature("int getSort()");
 
     //generated numbers:这些数字什么意思
-    // 这些数字用在计算 hashcode
+    // 这些素数数字用在计算 hashcode
     private final static int PRIMES[] = {
                11,         73,        179,       331,
               521,        787,       1213,      1823,

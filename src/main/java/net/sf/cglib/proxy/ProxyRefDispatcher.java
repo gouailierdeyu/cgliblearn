@@ -24,8 +24,8 @@ public interface ProxyRefDispatcher extends Callback {
     /**
      * Return the object which the original method invocation should
      * be dispatched. This method is called for <b>every</b> method invocation.
-     * @param proxy a reference to the proxy (generated) object
-     * @return an object that can invoke the method
+     * @param proxy 生成类，子类，代理类 a reference to the proxy (generated) object
+     * @return 返回一个可以调用这个方法（被代理的方法）的对象 an object that can invoke the method
      */
     Object loadObject(Object proxy) throws Exception;
 }

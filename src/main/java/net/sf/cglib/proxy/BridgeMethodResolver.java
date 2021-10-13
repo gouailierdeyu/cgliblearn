@@ -41,7 +41,14 @@ import org.objectweb.asm.Opcodes;
  */
 class BridgeMethodResolver {
 
+    /**
+     * map 一个类和类方法的集合
+     */
     private final Map/* <Class, Set<Signature> */declToBridge;
+
+    /**
+     * 类的类加载器
+     */
     private final ClassLoader classLoader;
 
     public BridgeMethodResolver(Map declToBridge, ClassLoader classLoader) {
@@ -50,6 +57,8 @@ class BridgeMethodResolver {
     }
 
     /**
+     * 查找所有被invokspecial调用的桥接方法，并返回它们。
+     *
      * Finds all bridge methods that are being called with invokespecial &
      * returns them.
      */
@@ -79,7 +88,7 @@ class BridgeMethodResolver {
     private static class BridgedFinder extends ClassVisitor {
         private Map/*<Signature, Signature>*/ resolved;
         private Set/*<Signature>*/ eligibleMethods;
-        
+
         private Signature currentMethod = null;
 
         BridgedFinder(Set eligibleMethods, Map resolved) {

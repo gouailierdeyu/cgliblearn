@@ -17,6 +17,9 @@ package net.sf.cglib.proxy;
 
 import org.objectweb.asm.Type;
 
+/**
+ * 回调类型的具体子接口的类型信息，生成信息
+ */
 class CallbackInfo
 {
     public static Type[] determineTypes(Class[] callbackTypes) {
@@ -56,7 +59,7 @@ class CallbackInfo
     private Class cls;
     private CallbackGenerator generator;
     private Type type;
-    
+
     private static final CallbackInfo[] CALLBACKS = {
         new CallbackInfo(NoOp.class, NoOpGenerator.INSTANCE),
         new CallbackInfo(MethodInterceptor.class, MethodInterceptorGenerator.INSTANCE),
@@ -112,5 +115,5 @@ class CallbackInfo
         throw new IllegalStateException("Unknown callback type " + callbackType);
     }
 }
-    
+
 

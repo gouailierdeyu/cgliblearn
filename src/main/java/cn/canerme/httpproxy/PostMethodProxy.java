@@ -67,15 +67,14 @@ public class PostMethodProxy implements MethodInterceptor {
 
         }
         if (json)
-            doPost(uri,jsonbody,headers,json);
+            return doPost(uri,jsonbody,headers,json);
         else
-            doPost(uri,body,headers,json);
+            return doPost(uri,body,headers,json);
 
         // System.out.println("PostMethodProxy");
-        return doPost(uri,body,headers,json);
     }
 
-    private int doPost(String uri, Object body, String[] headers, boolean json) throws IOException, InterruptedException {
+    private String doPost(String uri, Object body, String[] headers, boolean json) throws IOException, InterruptedException {
         HttpRequest request = null;
         String bo = null;
         for (int i = 0; i < headers.length; i++) {
@@ -84,7 +83,6 @@ public class PostMethodProxy implements MethodInterceptor {
                     json=true;
                 }
                 if (json){
-                    headers[i+1]="application/json";
                     request= HttpRequest.newBuilder()
                             .uri(URI.create(uri))
                             .headers(headers)
@@ -109,6 +107,7 @@ public class PostMethodProxy implements MethodInterceptor {
                     }
                 }
             }
+
             request= HttpRequest.newBuilder()
                     .uri(URI.create(uri))
                     .headers(headers)
@@ -120,6 +119,6 @@ public class PostMethodProxy implements MethodInterceptor {
         HttpClient client = HttpClient.newBuilder().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return response.statusCode();
+        return response.body();
     }
 }

@@ -29,7 +29,7 @@ public class TestClassCGlib {
         System.out.println(Callback.class.getInterfaces().length==0);
         System.out.println(InvocationHandler.class.getInterfaces()[0]);
         Enhancer enhancer= new Enhancer();
-        enhancer.setCallback(new PrintCallBack());
+        enhancer.setCallback(new PrintInterceptor());
 
         //enhancer.setCallbackType(czy.PrintCallBack.class);
         enhancer.setSuperclass(TestClassCGlib.class);
@@ -77,6 +77,7 @@ class PrintCallBack implements InvocationHandler {
             System.out.println(a.toString());
         });
         System.out.println("Print call back");
+//        method.invoke(proxy,args);
         return "ss";
     }
 }
@@ -93,6 +94,7 @@ class PrintInterceptor implements MethodInterceptor {
 // 在生成实现方法里面自己调用obj会出现stackoverflow是为什么？？？？
         Object o=proxy.invokeSuper(obj,args);
         System.out.println("czy.PrintInterceptor 在方法执行后的切面");
+        method.invoke(obj,args);
         return method.getName();
     }
 }

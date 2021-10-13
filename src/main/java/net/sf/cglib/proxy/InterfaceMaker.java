@@ -22,6 +22,8 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Type;
 
 /**
+ * 运行时生成一个新的接口，供Enhancer使用
+ *
  * Generates new interfaces at runtime.
  * By passing a generated interface to the Enhancer's list of interfaces to
  * implement, you can make your enhanced classes handle an arbitrary set
@@ -44,6 +46,7 @@ public class InterfaceMaker extends AbstractClassGenerator
     }
 
     /**
+     * 添加的接口的方法签名和异常
      * Add a method signature to the interface.
      * @param sig the method signature to add to the interface
      * @param exceptions an array of exception types to declare for the method
@@ -53,6 +56,7 @@ public class InterfaceMaker extends AbstractClassGenerator
     }
 
     /**
+     * 直接添加一个方法到接口中，访问修饰符变成public abstract
      * Add a method signature to the interface. The method modifiers are ignored,
      * since interface methods are by definition abstract and public.
      * @param method the method to add to the interface

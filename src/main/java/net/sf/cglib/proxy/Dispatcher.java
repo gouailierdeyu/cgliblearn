@@ -24,7 +24,7 @@ public interface Dispatcher extends Callback {
     /**
      * Return the object which the original method invocation should
      * be dispatched. This method is called for <b>every</b> method invocation.
-     * @return an object that can invoke the method
+     * @return 能够调用方法的对象，再使用这个对象来调用方法an object that can invoke the method
      */
     Object loadObject() throws Exception;
 }

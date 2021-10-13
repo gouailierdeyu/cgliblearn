@@ -16,6 +16,7 @@
 package net.sf.cglib.proxy;
 
 /**
+ * 实际上就是懒加载这个对象，然后用这个对象来调用方法
  * Lazy-loading {@link Enhancer} callback.
  */
 public interface LazyLoader extends Callback {
@@ -24,8 +25,8 @@ public interface LazyLoader extends Callback {
      * dispatched. Called as soon as the first lazily-loaded method in
      * the enhanced instance is invoked. The same object is then used
      * for every future method call to the proxy instance.
-     * @return an object that can invoke the method
-     * 可以调用该方法的对象
+     * @return 可以调用该被拦截的方法的对象，再使用这个对象来调用方法 an object that can invoke the method
+     *
      */
     Object loadObject() throws Exception;
 }

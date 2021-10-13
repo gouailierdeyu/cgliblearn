@@ -47,4 +47,10 @@ public class testlambdaexception {
             });
     }
 
+    @Test
+    public void testClass(){
+        Object s=new String("sds");
+        System.out.println(s.getClass());
+    }
+
 }
