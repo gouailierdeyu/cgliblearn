@@ -1,4 +1,4 @@
-package cn.canerme.exception;
+package cn.canerme.httpproxy.exception;
 
 /**
  * UTF-8

@@ -1,4 +1,4 @@
-package cn.canerme.httpmethod.annotation;
+package cn.canerme.httpproxy.httpmethod.annotation;
 
 import java.lang.annotation.*;
 

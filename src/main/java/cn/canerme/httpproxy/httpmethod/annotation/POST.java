@@ -1,10 +1,6 @@
-package cn.canerme.httpmethod.annotation;
-
-import net.sf.cglib.reflect.MulticastDelegate;
+package cn.canerme.httpproxy.httpmethod.annotation;
 
 import java.lang.annotation.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * UTF-8

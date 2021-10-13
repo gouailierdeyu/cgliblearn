@@ -1,6 +1,6 @@
-package cn.canerme.httpproxy;
+package cn.canerme.httpproxy.methodproxy;
 
-import cn.canerme.httpmethod.annotation.GET;
+import cn.canerme.httpproxy.httpmethod.annotation.GET;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 

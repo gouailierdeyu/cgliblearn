@@ -1,15 +1,14 @@
-package cn.canerme.httpproxy;
+package cn.canerme.httpproxy.methodproxy;
 
-import cn.canerme.exception.HttpMethodConfusionException;
-import cn.canerme.httpmethod.annotation.DELETE;
-import cn.canerme.httpmethod.annotation.GET;
-import cn.canerme.httpmethod.annotation.POST;
-import cn.canerme.httpmethod.annotation.PUT;
+import cn.canerme.httpproxy.exception.HttpMethodConfusionException;
+import cn.canerme.httpproxy.httpmethod.annotation.DELETE;
+import cn.canerme.httpproxy.httpmethod.annotation.GET;
+import cn.canerme.httpproxy.httpmethod.annotation.POST;
+import cn.canerme.httpproxy.httpmethod.annotation.PUT;
 import net.sf.cglib.proxy.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
 
 /**
  * UTF-8
@@ -26,7 +25,7 @@ public class HttpProxyFilter extends CallbackHelper {
 
     private static  PostMethodProxy postMethodProxy= new PostMethodProxy();
     private static  GetMethodProxy getMethodProxy= new GetMethodProxy();
-    private static  DeleteMethodPorxy deleteMethodPorxy = new DeleteMethodPorxy();
+    private static DeleteMethodProxy deleteMethodPorxy = new DeleteMethodProxy();
     private static PutMethodProxy putMethodProxy = new PutMethodProxy();
 
 

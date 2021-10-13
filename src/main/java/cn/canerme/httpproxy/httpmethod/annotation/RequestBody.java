@@ -1,4 +1,4 @@
-package cn.canerme.httpmethod.annotation;
+package cn.canerme.httpproxy.httpmethod.annotation;
 
 import java.lang.annotation.*;
 
@@ -11,6 +11,5 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER})
-public @interface RequestParam {
-
+public @interface RequestBody {
 }

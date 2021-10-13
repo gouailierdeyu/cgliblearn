@@ -1,8 +1,4 @@
-package cn.canerme.httpclient;
-
-import cn.canerme.httpmethod.annotation.GET;
-
-import java.util.Map;
+package cn.canerme.httpproxy.httpclient;
 
 /**
  * UTF-8

@@ -1,17 +1,8 @@
-package cn.canerme;
+package cn.canerme.httpproxy;
 
-import cn.canerme.httpclient.HttpClient;
-import cn.canerme.httpproxy.GetMethodProxy;
-import cn.canerme.httpproxy.HttpProxyFilter;
-import cn.canerme.httpproxy.PostMethodProxy;
-import net.sf.cglib.proxy.Callback;
+import cn.canerme.httpproxy.httpclient.HttpClient;
+import cn.canerme.httpproxy.methodproxy.HttpProxyFilter;
 import net.sf.cglib.proxy.Enhancer;
-
-import java.beans.EventHandler;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * UTF-8

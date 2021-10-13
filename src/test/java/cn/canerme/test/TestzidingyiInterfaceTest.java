@@ -1,15 +1,10 @@
 package cn.canerme.test;
 
-import cn.canerme.HttpClientFactory;
+import cn.canerme.httpproxy.HttpClientFactory;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.*;
 
 /**
  * UTF-8

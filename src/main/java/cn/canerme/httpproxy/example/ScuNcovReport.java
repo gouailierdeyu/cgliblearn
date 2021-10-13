@@ -1,7 +1,7 @@
-package cn.canerme.example;
+package cn.canerme.httpproxy.example;
 
-import cn.canerme.HttpClientFactory;
-import cn.canerme.httpclient.HttpClient;
+import cn.canerme.httpproxy.HttpClientFactory;
+import cn.canerme.httpproxy.httpclient.HttpClient;
 
 import java.util.ArrayList;
 import java.util.List;

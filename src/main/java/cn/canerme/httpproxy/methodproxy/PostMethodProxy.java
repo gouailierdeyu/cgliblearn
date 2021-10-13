@@ -1,7 +1,7 @@
-package cn.canerme.httpproxy;
+package cn.canerme.httpproxy.methodproxy;
 
-import cn.canerme.httpmethod.annotation.POST;
-import cn.canerme.httpmethod.annotation.RequestBody;
+import cn.canerme.httpproxy.httpmethod.annotation.POST;
+import cn.canerme.httpproxy.httpmethod.annotation.RequestBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
@@ -14,7 +14,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Locale;
 
 /**
  * UTF-8

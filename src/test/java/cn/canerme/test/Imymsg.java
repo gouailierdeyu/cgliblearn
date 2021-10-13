@@ -1,12 +1,10 @@
 package cn.canerme.test;
 
-import cn.canerme.httpmethod.annotation.GET;
-import cn.canerme.httpmethod.annotation.POST;
-import cn.canerme.httpmethod.annotation.RequestBody;
+import cn.canerme.httpproxy.httpmethod.annotation.GET;
+import cn.canerme.httpproxy.httpmethod.annotation.POST;
+import cn.canerme.httpproxy.httpmethod.annotation.RequestBody;
 
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * UTF-8
