@@ -3,8 +3,15 @@ package cn.canerme.httpproxy.example;
 import cn.canerme.httpproxy.HttpClientFactory;
 import cn.canerme.httpproxy.httpclient.HttpClient;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * UTF-8
@@ -14,8 +21,27 @@ import java.util.List;
  */
 public class ScuNcovReport {
     public static void main(String[] args) throws Throwable {
+        LocalTime time = LocalTime.of(9,30);
+        LocalTime timeNow = LocalTime.now();
+        long until = timeNow.until(time, ChronoUnit.SECONDS);
+        Duration between = Duration.between(timeNow, time);
+        System.out.println(between.getSeconds());
+        System.out.println(until);
+        long period = 60*60*24;
+        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
+        scheduled.scheduleAtFixedRate(()->{
+            try {
+                doSaveNcov();
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        },LocalTime.now().until(time, ChronoUnit.SECONDS), period, TimeUnit.SECONDS);
+
+    }
+
+
+    public static void doSaveNcov() throws Throwable{
         HttpClient httpClient = HttpClientFactory.getHttpClient();
-        String body = null;
         List<String> headers = new ArrayList<>();
         headers.add("X-Requested-With");
         headers.add("XMLHttpRequest");

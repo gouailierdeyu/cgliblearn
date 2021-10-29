@@ -78,7 +78,7 @@ public class PostMethodProxy implements MethodInterceptor {
         String bo = null;
         for (int i = 0; i < headers.length; i++) {
             if ("content-type".equalsIgnoreCase(headers[i]) ) {
-                if ("application/json".equalsIgnoreCase(headers[i+1]) ){
+                if (i+1<headers.length && headers[i+1].toLowerCase().contains("application/json") ){
                     json=true;
                 }
                 if (json){
