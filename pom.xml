@@ -49,9 +49,36 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>17</source>
+                    <target>17</target>
                     <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>java</executable> <!-- executable指的是要执行什么样的命令 -->
+                    <arguments>
+                        <argument>--add-opens=java.base/java.lang=ALL-UNNAMED</argument> <!-- 这是一个JVM参数 -->
+                        <argument>-Dfile.encoding=UTF-8</argument> <!-- 这是一个系统属性参数 -->
+
+                        <argument>-classpath</argument> <!-- 这是classpath属性，其值就是下面的<classpath/> -->
+                        <classpath/> <!-- 这是exec插件最有价值的地方，工程的classpath并不需要手动指定，由exec自动计算得出 -->
+
+                        <argument>cn.canerme.httpproxy.example.ScuNcovReport</argument> <!-- 程序入口，主类名称 -->
+                        <argument>arg1</argument> <!-- 程序的第一个命令行参数 -->
+                        <argument>arg2</argument> <!-- 程序的第二个命令行参数 -->
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>

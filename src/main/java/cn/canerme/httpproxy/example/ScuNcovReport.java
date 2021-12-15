@@ -16,19 +16,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * UTF-8
  * Created by czy  Time : 2021/10/13 10:58
- *
+ * --add-opens java.base/java.lang=ALL-UNNAMED
  * @version 1.0
  */
 public class ScuNcovReport {
     public static void main(String[] args) throws Throwable {
         LocalTime time = LocalTime.of(9,30);
-        LocalTime timeNow = LocalTime.now();
-        long until = timeNow.until(time, ChronoUnit.SECONDS);
-        Duration between = Duration.between(timeNow, time);
-        System.out.println(between.getSeconds());
-        System.out.println(until);
         long period = 60*60*24;
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
+        System.out.println(LocalTime.now().until(time, ChronoUnit.SECONDS));
         scheduled.scheduleAtFixedRate(()->{
             try {
                 doSaveNcov();
