@@ -9,12 +9,15 @@ package cn.canerme.httpproxy.httpclient;
 public interface HttpClient {
 
     // post组 用于发起新增请求
-    String post(String uri, Object query, String[] headers) throws Throwable;
-    String post(String uri, Object query) throws Throwable;
+    String post(String uri, Object body, String[] headers) throws Throwable;
+    String post(String uri, Object body) throws Throwable;
     String post(String uri) throws Throwable;
 
-    String post(String uri, String[] query, String[] headers) throws Throwable;
-    String post(String uri, String[] query) throws Throwable;
+    String post(String uri, String[] body, String[] headers) throws Throwable;
+    String post(String uri, String[] body) throws Throwable;
+
+    String post(String uri, String body, String[] headers) throws Throwable;
+    String post(String uri, String body) throws Throwable;
 
     // get组 用于发起查询请求
     String get(String uri, String[] query, String[] headers) throws Throwable;

@@ -1,8 +1,12 @@
-package cn.canerme.httpproxy.example;
+package cn.canerme.httpproxy.example.scuncov;
 
 import cn.canerme.httpproxy.HttpClientFactory;
 import cn.canerme.httpproxy.httpclient.HttpClient;
+import cn.canerme.httpproxy.util.UicodeBackslashU;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -12,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * UTF-8
@@ -20,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  */
 public class ScuNcovReport {
+    public static HttpClient httpClient = HttpClientFactory.getHttpClient();
     public static void main(String[] args) throws Throwable {
         LocalTime time = LocalTime.of(9,30);
         long period = 60*60*24;
@@ -37,7 +44,7 @@ public class ScuNcovReport {
 
 
     public static void doSaveNcov() throws Throwable{
-        HttpClient httpClient = HttpClientFactory.getHttpClient();
+
         List<String> headers = new ArrayList<>();
         headers.add("X-Requested-With");
         headers.add("XMLHttpRequest");
@@ -56,5 +63,14 @@ public class ScuNcovReport {
 
         String postResult = httpClient.post("https://wfw.scu.edu.cn/ncov/wap/default/save", body, headers.toArray(new String[0]));
         System.out.println(postResult);
+        doPushMessage(postResult);
+    }
+
+    public static void doPushMessage(String postResult) throws Throwable {
+
+        String title = URLEncoder.encode("微服务健康日报",StandardCharsets.UTF_8);
+        ServerChanMessage serverChanMessage = new ServerChanMessage(title, URLEncoder.encode(postResult,StandardCharsets.UTF_8));
+        String pushResult = httpClient.post(messageUrl+"?"+serverChanMessage.toString());
+        System.out.println(UicodeBackslashU.unicodeToCn(pushResult));
     }
 }
