@@ -1,6 +1,8 @@
 package cn.canerme.httpproxy.methodproxy;
 
 import cn.canerme.httpproxy.httpmethod.annotation.GET;
+import cn.canerme.httpproxy.util.CompressUtil;
+import cn.canerme.httpproxy.util.UicodeBackslashU;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
@@ -11,6 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 /**
  * UTF-8
@@ -71,6 +74,7 @@ public class GetMethodProxy implements MethodInterceptor {
                 uri = uri+"?"+q;
         }
         HttpClient httpClient = HttpClient.newHttpClient();
+        HttpClient.newHttpClient();
         HttpRequest.Builder builder;
 //        System.out.println(headers.length);
         if (headers!=null && headers.length!=0) {
@@ -81,7 +85,8 @@ public class GetMethodProxy implements MethodInterceptor {
         } else {
             builder = HttpRequest.newBuilder(URI.create(uri)).GET();
         }
-        HttpResponse<String> httpResponse = httpClient.send(builder.build(), HttpResponse.BodyHandlers.ofString());
-        return httpResponse.body();
+        HttpResponse<byte[]> httpResponse = httpClient.send(builder.build(), HttpResponse.BodyHandlers.ofByteArray());
+        byte[] bytes = CompressUtil.unCompress(httpResponse);
+        return UicodeBackslashU.unicodeToCn(new String(bytes, StandardCharsets.UTF_8));
     }
 }

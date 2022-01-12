@@ -3,6 +3,7 @@ package cn.canerme.httpproxy.methodproxy;
 import cn.canerme.httpproxy.httpmethod.annotation.POST;
 import cn.canerme.httpproxy.httpmethod.annotation.RequestBody;
 import cn.canerme.httpproxy.httprequest.RequestUtil;
+import cn.canerme.httpproxy.util.CompressUtil;
 import cn.canerme.httpproxy.util.UicodeBackslashU;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -17,6 +18,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -113,8 +115,9 @@ public class PostMethodProxy implements MethodInterceptor {
         }
 
         HttpClient client = HttpClient.newBuilder().build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return UicodeBackslashU.unicodeToCn(response.body());
+        HttpResponse<byte[]> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+        byte[] bytes = CompressUtil.unCompress(httpResponse);
+        return UicodeBackslashU.unicodeToCn(new String(bytes, StandardCharsets.UTF_8));
     }
 }
